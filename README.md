@@ -1,3 +1,3 @@
 # QuizChamp
-Innovative Collage Project
+Innovative Collage Project.
 Author - Ketan Dav
