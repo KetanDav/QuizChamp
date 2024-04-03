@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-webkit-contacts-auto-fill-button,
+        input[type="password"]::-webkit-inner-spin-button,
+        input[type="password"]::-webkit-clear-button,
+        input[type="password"]::-webkit-outer-spin-button {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Titillium Web', sans-serif;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 0.585);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.33);
+        }
+
+        .form-header {
+            padding: 20px 20px 0 10px;
+            background-color: #ffffff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        .form-field {
+            width: calc(100% - 40px);
+            margin: 10px 20px;
+            font-size: 18px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            padding: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .form-field:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-button {
+            width: 100%;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 20px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+
+        .signupbtn {
+            padding: 0 10px;
+        }
+
+        .signupbtn>a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 0 5px;
+        }
+
+        .signupbtn>a:hover {
+            text-decoration: underline
+        }
+
+        .hide-password-btn {
+            position: relative;
+            font-size: 16px;
+            color: #007bff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .hide-password-btn i {
+            margin-right: 5px;
+            /* Adjust spacing between icon and text */
+            position: absolute;
+            top: -9.7vh;
+            left: 33vw;
+        }
+
+        .hide-password-btn:hover {
+            color: #0056b3;
+        }
+
+
+
+
+        .panda {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hand {
+            display: flex;
+            justify-content: space-between;
+            width: 255px;
+            margin-bottom: -15px;
+        }
+
+        .cir {
+            width: 35px;
+            height: 35px;
+            background-color: red;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bh {
+            width: 35px;
+            height: 35px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 100%;
+            border: 4px solid rgb(0, 0, 0);
+            margin-bottom: -10px;
+        }
+
+        .pett {
+            width: 250px;
+            height: 250px;
+            background-color: red;
+            border-radius: 100%;
+            margin-bottom: -50px;
+        }
+
+        .eyes,
+        .ears {
+            width: 250px;
+            display: flex;
+        }
+
+        .eyes {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ears {
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-top: -55px;
+        }
+
+        .eye,
+        .ear {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background-color: red;
+        }
+
+        .ear {
+            background-color: white;
+            border: 8px solid red;
+            height: 60px;
+        }
+
+        .eye {
+            background-color: rgba(0, 0, 0, 0.651);
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .eyeboll {
+            margin: 5px 10px;
+            transition: margin 0.3s ease;
+            width: 25px;
+            height: 25px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 100%;
+        }
+
+        .thair,
+        .lhair,
+        .rhair {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .lhair,
+        .rhair {
+            transform: rotate(90deg);
+            gap: 10px;
+
+        }
+
+        .lhair>.hair,
+        .rhair>.hair {
+            width: 3px;
+        }
+
+        .hair {
+            height: 55px;
+            width: 4px;
+            background-color: black;
+            border-radius: 100%;
+        }
+
+        .mhair {
+            display: flex;
+            justify-content: space-between;
+            margin: -8px 13px 0 13px;
+        }
+
+        .moth {
+            width: 250px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .moo {
+            width: 100px;
+            height: 40px;
+            background-color: white;
+            border-radius: 100%;
+        }
+
+        .inmoo {
+            width: 100px;
+            height: 35px;
+            border-radius: 100%;
+            background-color: red;
+        }
+
+        .gls {
+            width: 70px;
+            height: 50px;
+            background-color: black;
+            border-radius: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .midgls {
+            width: 40px;
+            height: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .join {
+            width: 40px;
+            height: 5px;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .dnd {
+            width: 29px;
+            height: 5px;
+            background-color: black;
+            transform: rotate(25deg);
+            margin-bottom: 25px;
+            margin-right: -5px;
+        }
+
+        .dnd2 {
+            transform: rotate(-25deg);
+            margin-left: -5px;
+            margin-right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="panda">
+        <div class="pett">
+            <div class="thair">
+                <div class="hair"></div>
+                <div class="hair"></div>
+                <div class="hair"></div>
+                <div class="hair"></div>
+            </div>
+            <div class="ears">
+                <div class="ear"></div>
+                <div class="ear"></div>
+            </div>
+            <div class="eyes">
+                <div class="dnd dored"></div>
+                <div class="gls dored">
+                    <div class="eye">
+                        <div class="eyeboll"></div>
+                    </div>
+                </div>
+                <div class="midgls">
+                    <div class="join dored">
+
+                    </div>
+                </div>
+                <div class="gls dored">
+                    <div class="eye">
+                        <div class="eyeboll"></div>
+                    </div>
+                </div>
+                <div class="dnd dnd2 dored"></div>
+            </div>
+            <div class="mhair">
+                <div class="lhair">
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                </div>
+                <div class="rhair">
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                    <div class="hair"></div>
+                </div>
+            </div>
+            <div class="moth">
+                <div class="moo">
+                    <div class="inmoo">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hand">
+            <div class="cir">
+                <div class="bh"></div>
+            </div>
+            <div class="cir">
+                <div class="bh"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="container">
+        <div class="form-header">
+            <h2>Login</h2>
+        </div>
+        <div class="form-body">
+            <form action="home.html" onsubmit="return validateForm()">
+                <input type="text" name="name" id="name" class="form-field" placeholder="Username">
+                <input type="password" name="pass" id="pass" class="form-field" placeholder="Password">
+                <button type="button" class="hide-password-btn" onclick="togglePasswordVisibility()">
+                    <i id="password-icon" class="fas fa-eye"></i> <!-- Font Awesome icon for eye -->
+                </button>
+
+                <button type="submit" class="form-button">Login</button>
+            </form>
+            <p class="signupbtn">New User? <a href="signup.html">Creat Account</a></p>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+
+</html>

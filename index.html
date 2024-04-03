@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Champ</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        
+    
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+
+        }
+
+        nav {
+            display: flex;
+            height: 11vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+
+        }
+
+        main {
+            background-color: white;
+            height: calc(94vh - var());
+        }
+
+        .saprator {
+            height: 3px;
+            background-color: black;
+            margin: 10px 40px;
+            border-radius: 40px;
+        }
+
+        .logo {
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        .icon>a {
+            text-decoration: none;
+            color: black;
+            font-size: 23px;
+            padding: 0 20px;
+        }
+
+        div.icon>a.login {
+            color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+            padding: 0 30px;
+        }
+
+        div.icon>a.login:hover {
+            color: white;
+            background-color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+        }
+
+        .tagline {
+            font-family: 'Titillium Web';
+            font-weight: 600;
+            font-size: 55px;
+        }
+
+        .subtagline {
+            border-left: 3px solid #828282;
+            padding: 0 30px;
+            color: #828282;
+            font-size: 20px;
+            box-sizing: border-box;
+        }
+
+        main {
+            padding: 50px 75px 0 75px;
+            display: flex;
+        }
+
+        .right {
+            padding: 100px 0 0 100px;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+            height: 600px;
+        }
+
+        .quizbtn {
+            width: 100%;
+            display: flex;
+            font-size: 30px;
+
+        }
+
+        .start {
+            color: white;
+            background-color: #FCC822;
+            padding: 5px 10px;
+            margin: 0 10px 0 0;
+        }
+
+        .know {
+            padding: 5px 10px;
+            margin: 0 10px;
+        }
+
+        .left {
+            width: 50%;
+            height: 700px;
+
+        }
+
+        .background {
+            background-image: url('background1.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 100%;
+            height: 100%;
+        }
+
+        .auth {
+            position: absolute;
+            width: 50vw;
+            height: 60vh;
+            left: 25vw;
+            border: 6px solid #FCC822;
+            border-radius: 6px;
+            background-color: transparent;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .auth>iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logoholder">
+            <img src="logo.png" alt="" class="logo">
+        </div>
+        <div class="icon">
+            <a href="#">How it works?</a>
+            <a href="#">Features</a>
+            <a href="#">About us</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </nav>
+    <div class="saprator">
+
+    </div>
+    <main>
+        <div class="right">
+            <h1 class="tagline">Learn <br> New Concept <br> From Each Question</h1>
+            <p class="subtagline">
+                We help you prepare for exams and quizes
+            </p>
+            <div class="quizbtn">
+                <div class="start">
+                    Start solving
+                </div>
+                <div class="know">
+                    Know more
+                </div>
+            </div>
+        </div>
+        <div class="left">
+            <div class="background">
+
+            </div>
+        </div>
+        <div class="auth">
+            <iframe src="login.html" frameborder="0" id="logpopup"></iframe>
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
