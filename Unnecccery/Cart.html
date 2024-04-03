@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The True Dynamic Feature</title>
+    <link rel="stylesheet" href="Inserting.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            
+        }
+        body{
+            background-color: rgb(22, 29, 78);
+        }
+        nav>a{
+            text-decoration: none;
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 22px;
+            text-decoration: underline;
+            text-decoration-color:rgb(255, 255, 255);
+            text-decoration-style:dashed;
+            text-decoration-thickness:3px;
+            padding:0 40px;
+            background-color: rgb(0, 0, 0);
+        }
+        nav>a:hover{
+            text-decoration: none;
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 22px;
+            text-decoration: underline;
+            text-decoration-color:red;
+            text-decoration-style:dashed;
+            text-decoration-thickness:3px;
+            padding:0 40px;
+            border-radius: 4px;
+            background-color: rgb(9, 57, 200);
+        }
+        nav{
+            background-color: rgb(0, 0, 0);
+            padding: 13px;
+        }
+        main{
+            background-color: rgb(9, 57, 200);
+            width: calc(100% - 100px);
+            margin: 30px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        main>div{
+            width: 65%;
+            background-color: rgb(255, 0, 0);
+            height: 26vh;
+            border: 5px solid black;
+            border-radius: 4px;
+            margin: 20px 0px;
+            display: flex;
+        }
+        .btn{
+            color: white;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: darkblue;
+            border: 3px solid black;
+            width: 10vw;
+            text-align: center;
+            margin: 30px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .btns{
+            display: flex;
+        }
+        .main > div > .data > span {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        main.main>div>div.data>span#name{
+            font: 5446px;
+            
+        }
+        #discription{
+            font-size: 16px;
+        }
+        #sample{
+            display: none;      
+        }
+        main>h2{
+            color: white;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 30px;
+            width: 15vw;
+            border: 4px dashed rgb(255, 0, 217);
+            text-align: center;
+            background-color: rgb(22, 29, 78);
+            border-radius: 20px;
+        }
+        .main > div {
+            width: 90%; /* Adjust width as needed */
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin: 20px auto; /* Center the card */
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+        
+        .main > div img {
+            width: 240px; /* Adjust image size as needed */
+            margin: 0 50px 0 30px;
+        }
+        
+        .data {
+            flex: 1;
+            background-color: rgb(22, 29, 78);
+            color: #fff;
+            height: 100%;
+            padding:0 0 0 40px;
+            margin: 0 20px;
+            width: calc(100%-400px);
+            border: 4px dashed rgb(255, 0, 230);
+            border-radius: 10px;
+        }
+        
+        .udf {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: red;
+        }
+        
+        .btns {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="http://" target="_blank" rel="noopener noreferrer">Home</a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">Java</a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">HTML</a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">CSS</a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">JS</a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">Python</a>
+    </nav>
+    <main class="main">
+        <h2>Cart</h2>
+        <div id="sample" hidden>
+            <img src="profile (1).png" alt="">
+            <div class="data">
+                <span id="name" class="udf"></span>
+                <br>
+                <span id="discription" class="udf" ></span>
+                <br>
+                <span > Price :</span>
+                <span id="price" class="udf"></span>
+                <br>
+                <span >Seller :</span>
+                <span id="seller" class="udf"></span>
+                <br>
+                <span >Stock :</span>
+                <span id="stock" class="udf"></span>
+                <br>
+                <span >Rating</span>
+                <span id="rating" class="udf"></span>
+                <br>
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <div>
+
+        </div>
+    </main>
+    <div class="btns">
+    <div class="btn1 btn">Add New Card</div>
+    <div class="btn2 btn">Remove Last Card</div>
+    <div class="btn3 btn">Remove All Card</div>
+    <div class="btn4 btn">Remove N-th Card</div>
+    <div class="btn5 btn">Remove With Name</div>
+</div>
+    <script src="Inserting.js"></script>
+</body>
+</html>
