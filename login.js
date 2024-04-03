@@ -17,7 +17,7 @@ eyeElements.forEach(function (element) {
 
 var doredElements = document.querySelectorAll(".dored");
 doredElements.forEach(function (element) {
-  element.style.backgroundColor = "red";
+  element.style.backgroundColor = " #ffbb00";
 });
 
 nameInput.addEventListener("focus", () => {
@@ -100,7 +100,7 @@ passwordInput.addEventListener("blur", () => {
 
   var doredElements = document.querySelectorAll(".dored");
   doredElements.forEach(function (element) {
-    element.style.backgroundColor = "red";
+    element.style.backgroundColor = " #ffbb00";
   });
 });
 
@@ -128,7 +128,7 @@ function RemoveGoggles()
 
     var doredElements = document.querySelectorAll(".dored");
     doredElements.forEach(function (element) {
-      element.style.backgroundColor = "red";
+      element.style.backgroundColor = "#ffbb00";
     });
 }
 function AddGoggles()
