@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
         *{
@@ -52,7 +51,7 @@
         .inQ{
             width: 90%;
             height: 75%;
-            background-color: rgba(251, 29, 125, 0.577);
+            background-color: rgb(251, 29, 125);
             border-radius: 100px;
         }
         .options{
@@ -67,7 +66,7 @@
             margin: 35px 90px;
             border-radius: 100px;
             height: auto;
-            background-color: rgba(255, 255, 255, 0.341);
+            background-color: rgb(255, 255, 255);
         }
         .otherBtns{
             width: 60vw;
@@ -108,13 +107,19 @@
             font-size: 50px;
             margin-right: 10px;
         }
+        .realQ{
+            text-align: center;
+            font-size: 23px;
+        }
     </style>
 </head>
 <body>
     <div class="BlurLayer">
         <div class="qCard">
             <div class="Q">
-                <div class="inQ"></div>
+                <div class="inQ">
+                    <div class="realQ"></div>
+                </div>
             </div>
             <div class="options">
                 <div class="option"></div>
@@ -131,11 +136,111 @@
             <div class="timer">
                 30
             </div>
-            <div class="skip">
+            <div class="skip" onclick="skipQuestion()">
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 SKIP
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const questionElement = document.querySelector('.inQ');
+            const optionsContainer = document.querySelector('.options');
+            const timerElement = document.querySelector('.timer');
+
+            async function fetchQuizData() {
+                try {
+                    let response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple");
+                    let data = await response.json();
+                    return data.results;
+                } catch (error) {
+                    console.error("Error fetching quiz data:", error);
+                    return []; // Return an empty array if there's an error
+                }
+            }
+
+            let quizData = [];
+            let currentQuestionIndex = 0;
+            let countdown;
+
+            async function initializeQuiz() {
+                quizData = await fetchQuizData();
+                displayQuestion();
+                startTimer();
+            }
+
+            function displayQuestion() {
+                const currentQuestion = quizData[currentQuestionIndex];
+                const questionNumber = currentQuestionIndex + 1; // Question numbers start from 1
+                questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
+
+                optionsContainer.innerHTML = '';
+                currentQuestion.incorrect_answers.forEach((option) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', selectOption);
+                    optionsContainer.appendChild(optionElement);
+                });
+
+                const correctOptionElement = document.createElement('div');
+                correctOptionElement.classList.add('option');
+                correctOptionElement.textContent = currentQuestion.correct_answer;
+                correctOptionElement.addEventListener('click', selectOption);
+                optionsContainer.appendChild(correctOptionElement);
+            }
+
+            function selectOption(event) {
+                clearInterval(countdown);
+                const selectedOption = event.target.textContent;
+                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
+
+                if (selectedOption === correctAnswer) {
+                    event.target.style.backgroundColor = '#4CAF50'; // Green color for correct answer
+                } else {
+                    event.target.style.backgroundColor = '#F44336'; // Red color for incorrect answer
+                    // Highlight the correct answer
+                    optionsContainer.querySelector(`.option:nth-child(${quizData[currentQuestionIndex].incorrect_answers.length + 1})`).style.backgroundColor = '#4CAF50';
+                }
+
+                // Move to the next question after a short delay
+                setTimeout(nextQuestion, 1000);
+            }
+
+            function nextQuestion() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    displayQuestion();
+                    startTimer();
+                } else {
+                    questionElement.textContent = 'Quiz completed!';
+                    optionsContainer.innerHTML = ''; // Clear options
+                    timerElement.textContent = ''; // Clear timer
+                }
+            }
+
+            function startTimer() {
+                let secondsLeft = 30;
+                timerElement.textContent = secondsLeft;
+
+                countdown = setInterval(() => {
+                    secondsLeft--;
+                    timerElement.textContent = secondsLeft;
+                    if (secondsLeft === 0) {
+                        clearInterval(countdown);
+                        //checkAnswer(null, quizData[currentQuestionIndex].correct_answer); // Remove this line
+                        nextQuestion(); // Call nextQuestion() directly
+                    }
+                }, 1000);
+            }
+
+            function skipQuestion() {
+                clearInterval(countdown); // Stop the timer
+                nextQuestion(); // Skip to the next question
+            }
+
+            initializeQuiz();
+        });
+    </script>
 </body>
 </html>
