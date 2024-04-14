@@ -23,6 +23,7 @@
             width: 100vw;
             height: 100vh;
             display: flex;
+            background-color: rgba(0, 0, 0, 0.586);
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -66,7 +67,8 @@
             margin: 35px 90px;
             border-radius: 100px;
             height: auto;
-            font-size: 20px;
+            cursor: pointer;
+            font-size: 25px;
             text-align: center;
             background-color: rgb(255, 255, 255);
         }
@@ -92,6 +94,7 @@
             justify-content:  center;
             align-items: center;
             font-size: 30px;
+            cursor: pointer;
 
         }
         .timer{
@@ -235,6 +238,7 @@
                     questionElement.textContent = 'Quiz completed!';
                     optionsContainer.innerHTML = ''; // Clear options
                     timerElement.textContent = ''; // Clear timer
+                    redirectToResultPage();
                 }
             }
         
@@ -257,8 +261,13 @@
                 clearInterval(countdown); // Stop the timer
                 nextQuestion(); // Skip to the next question
             }
-        
+            function redirectToResultPage() {
+                // Redirect to the result page
+                window.location.href = "profile.html";
+            }
             initializeQuiz();
+            const skipButton = document.querySelector('.skip');
+            skipButton.addEventListener('click', skipQuestion);
         });
         
     </script>

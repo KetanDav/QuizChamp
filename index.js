@@ -27,3 +27,21 @@ function transitionBorderColor() {
 
 // Call the transitionBorderColor function periodically
 setInterval(transitionBorderColor, 500); // Change color every second
+
+
+const iframe = document.getElementById('logpopup');
+
+// Wait for the iframe to load
+iframe.onload = function() {
+    // Access the document inside the iframe
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+    // Find the login button inside the iframe document
+    const loginButton = iframeDocument.getElementById('loginBtn');
+
+    // Attach an event listener to the login button
+    loginButton.addEventListener('click', function() {
+        // Redirect to profile.html when the login button is clicked
+        window.location.href = 'profile.html';
+    });
+};
