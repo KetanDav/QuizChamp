@@ -66,6 +66,8 @@
             margin: 35px 90px;
             border-radius: 100px;
             height: auto;
+            font-size: 20px;
+            text-align: center;
             background-color: rgb(255, 255, 255);
         }
         .otherBtns{
@@ -146,8 +148,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             const questionElement = document.querySelector('.inQ');
             const optionsContainer = document.querySelector('.options');
+            const optionsArray = document.querySelectorAll('.option'); // Use querySelectorAll to get all elements with the class 'option'
             const timerElement = document.querySelector('.timer');
-
+        
             async function fetchQuizData() {
                 try {
                     let response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple");
@@ -158,71 +161,87 @@
                     return []; // Return an empty array if there's an error
                 }
             }
-
+        
             let quizData = [];
             let currentQuestionIndex = 0;
             let countdown;
-
+            let shuffledArray; // Declare shuffledArray as a global variable
+        
             async function initializeQuiz() {
                 quizData = await fetchQuizData();
                 displayQuestion();
                 startTimer();
             }
-
+            function resetOptionColors() {
+                optionsArray.forEach((option) => {
+                    option.style.backgroundColor = 'rgb(255, 255, 255)'; // Reset to white background
+                });
+            }
+            
             function displayQuestion() {
+                resetOptionColors();
                 const currentQuestion = quizData[currentQuestionIndex];
                 const questionNumber = currentQuestionIndex + 1; // Question numbers start from 1
                 questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
-
-                optionsContainer.innerHTML = '';
-                currentQuestion.incorrect_answers.forEach((option) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('option');
-                    optionElement.textContent = option;
-                    optionElement.addEventListener('click', selectOption);
-                    optionsContainer.appendChild(optionElement);
-                });
-
-                const correctOptionElement = document.createElement('div');
-                correctOptionElement.classList.add('option');
-                correctOptionElement.textContent = currentQuestion.correct_answer;
-                correctOptionElement.addEventListener('click', selectOption);
-                optionsContainer.appendChild(correctOptionElement);
-            }
-
-            function selectOption(event) {
-                clearInterval(countdown);
-                const selectedOption = event.target.textContent;
-                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
-
-                if (selectedOption === correctAnswer) {
-                    event.target.style.backgroundColor = '#4CAF50'; // Green color for correct answer
-                } else {
-                    event.target.style.backgroundColor = '#F44336'; // Red color for incorrect answer
-                    // Highlight the correct answer
-                    optionsContainer.querySelector(`.option:nth-child(${quizData[currentQuestionIndex].incorrect_answers.length + 1})`).style.backgroundColor = '#4CAF50';
+        
+                function shuffleArray(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const randomIndex = Math.floor(Math.random() * (i + 1));
+                        
+                        [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+                    }
+                    return array;
                 }
-
+                oarray=currentQuestion.incorrect_answers;
+                oarray.push(currentQuestion.correct_answer)
+                shuffledArray = shuffleArray(oarray); // Assign the shuffled array to the global variable
+                console.log(shuffledArray);
+                for(let i = 0; i < 4; i++) {
+                    optionsArray[i].innerText = shuffledArray[i];
+                }
+        
+                optionsArray.forEach((option)=>{
+                    option.addEventListener("click",()=>{
+                        selectOption(option); // Pass the clicked option to selectOption function
+                    })
+                });
+            }
+            function selectOption(option) {
+                clearInterval(countdown);
+                const selectedOption = option.textContent;
+                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
+        
+                if (selectedOption === correctAnswer) {
+                    option.style.backgroundColor = '#4CAF50'; // Green color for correct answer
+                } else {
+                    option.style.backgroundColor = '#F44336'; // Red color for incorrect answer
+                    const correctIndex = shuffledArray.indexOf(correctAnswer);
+                    // Highlight the correct answer
+                    optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
+                }
+        
                 // Move to the next question after a short delay
                 setTimeout(nextQuestion, 1000);
             }
-
+        
             function nextQuestion() {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < quizData.length) {
                     displayQuestion();
                     startTimer();
                 } else {
+                    clearInterval(countdown);
+                    console.log("Helooooooooooooooooooooooooooooooooooo")
                     questionElement.textContent = 'Quiz completed!';
                     optionsContainer.innerHTML = ''; // Clear options
                     timerElement.textContent = ''; // Clear timer
                 }
             }
-
+        
             function startTimer() {
-                let secondsLeft = 30;
+                let secondsLeft = 10;
                 timerElement.textContent = secondsLeft;
-
+        
                 countdown = setInterval(() => {
                     secondsLeft--;
                     timerElement.textContent = secondsLeft;
@@ -233,14 +252,15 @@
                     }
                 }, 1000);
             }
-
+        
             function skipQuestion() {
                 clearInterval(countdown); // Stop the timer
                 nextQuestion(); // Skip to the next question
             }
-
+        
             initializeQuiz();
         });
+        
     </script>
 </body>
 </html>
