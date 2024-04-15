@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            height: 11vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 5;
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+
+        .icon {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon>a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon>a>i {
+            font-size: 20px;
+        }
+
+        .icon>a.login {
+            color: #fcc822;
+            border: 2px solid #fcc822;
+            margin: 0 30px 0 10px;
+            padding: 5px 10px;
+            background-color: transparent;
+            transition: background-color 1s, color 0.5s;
+            border-radius: 20px;
+        }
+
+        .icon>a.login:hover {
+            color: #000;
+            background-color: #fcc822;
+        }
+
+        .layer {
+            width: 100vw;
+        }
+
+        .profile {
+            background-color: #fff;
+            padding: 20px;
+            margin: 40px 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+
+        .profile:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .bookmark-list {
+            overflow-y: auto;
+            max-height: calc(100vh - 320px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+        }
+
+        th:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .miniP {
+            width: 30px;
+            border-radius: 50%;
+        }
+
+        .pName {
+            margin-left: 10px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container input[type=text] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 12px 24px;
+            border: none;
+            background: #fcc822;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #ffdb58;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination button {
+            background-color: #333;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button.active {
+            background-color: #fcc822;
+            color: #333;
+        }
+
+        .pagination button:hover {
+            background-color: #555;
+        }
+
+        .add-bookmark {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .add-bookmark button {
+            background-color: #fcc822;
+            border: none;
+            color: black;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-bookmark button:hover {
+            background-color: #ffdb58;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Additional styles */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #fcc822;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #fcc822;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #ffdb58;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer">
+        <nav>
+            <div class="logoholder">
+                <img src="logo1k.png" alt="" class="logo">
+            </div>
+            <div class="icon">
+                <a href="#">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
+                <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                <a href="#">Contact us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                <a href="#" class="login">
+                    <img src="profile (1).png" alt="" class="miniP">
+                    <span class="pName">Elon Musk</span>
+                </a>
+            </div>
+        </nav>
+        <div class="profile">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search bookmark...">
+                <button id="searchBtn">Search</button>
+                <button id="clearBtn" onclick="clearSearch()">Clear</button>
+            </div>
+            <h2>Bookmarks</h2>
+            <div class="bookmark-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th onclick="sortBookmarks()">
+                                Date
+                                <span class="tooltip">Click to sort</span>
+                            </th>
+                            <th>Bookmark Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookmarkListBody">
+                        <!-- Bookmark list rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button id="prevPageBtn" onclick="prevPage()">Previous</button>
+                <button id="nextPageBtn" onclick="nextPage()">Next</button>
+            </div>
+            <div class="add-bookmark">
+                <button onclick="openAddBookmarkModal()">Add Bookmark</button>
+            </div>
+            <!-- Modal for adding a new bookmark -->
+            <div id="addBookmarkModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeAddBookmarkModal()">&times;</span>
+                    <h2>Add New Bookmark</h2>
+                    <form id="addBookmarkForm" onsubmit="return false;">
+                        <label for="bookmarkName">Bookmark Name:</label>
+                        <input type="text" id="bookmarkName" name="bookmarkName" required>
+                        <label for="bookmarkDate">Date:</label>
+                        <input type="date" id="bookmarkDate" name="bookmarkDate" required>
+                        <button onclick="addBookmark()">Add Bookmark</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Modal for viewing bookmark details -->
+            <div id="viewBookmarkModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeViewBookmarkModal()">&times;</span>
+                    <h2>Bookmark Details</h2>
+                    <div id="bookmarkDetails"></div>
+                </div>
+            </div>
+            <!-- Modal for editing bookmark details -->
+            <div id="editBookmarkModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditBookmarkModal()">&times;</span>
+                    <h2>Edit Bookmark</h2>
+                    <form id="editBookmarkForm" onsubmit="return false;">
+                        <label for="editBookmarkName">Bookmark Name:</label>
+                        <input type="text" id="editBookmarkName" name="editBookmarkName" required>
+                        <label for="editBookmarkDate">Date:</label>
+                        <input type="date" id="editBookmarkDate" name="editBookmarkDate" required>
+                        <button onclick="saveEditedBookmark()">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sample bookmark data (replace with actual data from backend)
+        var bookmarkData = [
+            { date: "2024-04-10", name: "Bookmark 1" },
+            { date: "2024-04-08", name: "Bookmark 2" },
+            { date: "2024-04-05", name: "Bookmark 3" },
+            { date: "2024-04-03", name: "Bookmark 4" },
+            { date: "2024-04-01", name: "Bookmark 5" },
+            { date: "2024-03-30", name: "Bookmark 6" }
+        ];
+
+        var currentPage = 1;
+        var bookmarksPerPage = 6;
+
+        // Function to render bookmark list table rows for a specific page
+        function renderBookmarkListRows(bookmarks) {
+            const bookmarkListBody = document.getElementById('bookmarkListBody');
+            bookmarkListBody.innerHTML = '';
+            const startIndex = (currentPage - 1) * bookmarksPerPage;
+            const endIndex = startIndex + bookmarksPerPage;
+            const currentBookmarks = bookmarks.slice(startIndex, endIndex);
+            currentBookmarks.forEach(bookmark => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bookmark.date}</td>
+                    <td>${bookmark.name}</td>
+                    <td>
+                        <button onclick="editBookmark('${bookmark.date}')">Edit</button>
+                        <button onclick="deleteBookmark('${bookmark.date}')">Delete</button>
+                        <button onclick="openViewBookmarkModal('${bookmark.date}')">View Details</button>
+                    </td>
+                `;
+                bookmarkListBody.appendChild(row);
+            });
+        }
+
+        // Function to sort bookmarks by date
+        function sortBookmarks() {
+            bookmarkData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            renderBookmarkListRows(bookmarkData);
+        }
+
+        // Function to handle pagination: previous page
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderBookmarkListRows(bookmarkData);
+            }
+        }
+
+        // Function to handle pagination: next page
+        function nextPage() {
+            const totalPages = Math.ceil(bookmarkData.length / bookmarksPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderBookmarkListRows(bookmarkData);
+            }
+        }
+
+        // Function to open the modal for adding a new bookmark
+        function openAddBookmarkModal() {
+            document.getElementById('addBookmarkModal').style.display = 'block';
+        }
+
+        // Function to close the modal for adding a new bookmark
+        function closeAddBookmarkModal() {
+            document.getElementById('addBookmarkModal').style.display = 'none';
+        }
+
+        // Function to add a new bookmark
+        function addBookmark() {
+            const bookmarkName = document.getElementById('bookmarkName').value;
+            const bookmarkDate = document.getElementById('bookmarkDate').value;
+            bookmarkData.push({ date: bookmarkDate, name: bookmarkName });
+            renderBookmarkListRows(bookmarkData);
+            closeAddBookmarkModal();
+        }
+
+        // Function to open the modal for viewing bookmark details
+        function openViewBookmarkModal(date) {
+            const bookmark = bookmarkData.find(b => b.date === date);
+            document.getElementById('bookmarkDetails').innerHTML = `
+                <p><strong>Date:</strong> ${bookmark.date}</p>
+                <p><strong>Name:</strong> ${bookmark.name}</p>
+            `;
+            document.getElementById('viewBookmarkModal').style.display = 'block';
+        }
+
+        // Function to close the modal for viewing bookmark details
+        function closeViewBookmarkModal() {
+            document.getElementById('viewBookmarkModal').style.display = 'none';
+        }
+
+        // Function to open the modal for editing a bookmark
+        function editBookmark(date) {
+            const bookmark = bookmarkData.find(b => b.date === date);
+            document.getElementById('editBookmarkName').value = bookmark.name;
+            document.getElementById('editBookmarkDate').value = bookmark.date;
+            document.getElementById('editBookmarkModal').style.display = 'block';
+        }
+
+        // Function to close the modal for editing a bookmark
+        function closeEditBookmarkModal() {
+            document.getElementById('editBookmarkModal').style.display = 'none';
+        }
+
+        // Function to save edited bookmark details
+        function saveEditedBookmark() {
+            const editedName = document.getElementById('editBookmarkName').value;
+            const editedDate = document.getElementById('editBookmarkDate').value;
+            const index = bookmarkData.findIndex(b => b.date === editedDate);
+            if (index !== -1) {
+                bookmarkData[index].name = editedName;
+                renderBookmarkListRows(bookmarkData);
+                closeEditBookmarkModal();
+            }
+        }
+
+        // Function to delete a bookmark
+        function deleteBookmark(date) {
+            bookmarkData = bookmarkData.filter(b => b.date !== date);
+            renderBookmarkListRows(bookmarkData);
+        }
+
+        // Function to perform search
+        function searchBookmarks() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredBookmarks = bookmarkData.filter(bookmark => {
+                return bookmark.name.toLowerCase().includes(searchTerm);
+            });
+            renderBookmarkListRows(filteredBookmarks);
+        }
+
+        // Function to clear search results and show all bookmarks
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderBookmarkListRows(bookmarkData);
+        }
+
+        // Initial rendering of bookmark list
+        renderBookmarkListRows(bookmarkData);
+    </script>
+</body>
+
+</html>

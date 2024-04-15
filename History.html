@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            height: 11vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 5;
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+
+        .icon {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon>a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon>a>i {
+            font-size: 20px;
+        }
+
+        .icon>a.login {
+            color: #fcc822;
+            border: 2px solid #fcc822;
+            margin: 0 30px 0 10px;
+            padding: 5px 10px;
+            background-color: transparent;
+            transition: background-color 1s, color 0.5s;
+            border-radius: 20px;
+        }
+
+        .icon>a.login:hover {
+            color: #000;
+            background-color: #fcc822;
+        }
+
+        .layer {
+            width: 100vw;
+        }
+
+        .profile {
+            background-color: #fff;
+            padding: 20px;
+            margin: 40px 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+
+        .profile:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .quiz-history {
+            overflow-y: auto;
+            max-height: calc(100vh - 320px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+        }
+
+        th:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .miniP {
+            width: 30px;
+            border-radius: 50%;
+        }
+
+        .pName {
+            margin-left: 10px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container input[type=text] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 12px 24px;
+            border: none;
+            background: #fcc822;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #ffdb58;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination button {
+            background-color: #333;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button.active {
+            background-color: #fcc822;
+            color: #333;
+        }
+
+        .pagination button:hover {
+            background-color: #555;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .download-btn button {
+            background-color: #fcc822;
+            border: none;
+            color: black;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn button:hover {
+            background-color: #ffdb58;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Additional styles */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #fcc822;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #fcc822;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #ffdb58;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer">
+        <nav>
+            <div class="logoholder">
+                <img src="logo1k.png" alt="" class="logo">
+            </div>
+            <div class="icon">
+                <a href="#">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
+                <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                <a href="#">Contact us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                <a href="#" class="login">
+                    <img src="profile (1).png" alt="" class="miniP">
+                    <span class="pName">Elon Musk</span>
+                </a>
+            </div>
+        </nav>
+        <div class="profile">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search quiz...">
+                <button id="searchBtn">Search</button>
+                <button id="clearBtn" onclick="clearSearch()">Clear</button>
+            </div>
+            <h2>Quiz History</h2>
+            <div class="quiz-history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th onclick="sortQuizHistory()">
+                                Date
+                                <span class="tooltip">Click to sort</span>
+                            </th>
+                            <th>Quiz Name</th>
+                            <th>Score</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quizHistoryBody">
+                        <!-- Quiz history rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button id="prevPageBtn" onclick="prevPage()">Previous</button>
+                <button id="nextPageBtn" onclick="nextPage()">Next</button>
+            </div>
+            <div class="download-btn">
+                <button onclick="downloadQuizHistory()">Download as CSV</button>
+            </div>
+            <div class="add-quiz">
+                <button onclick="openAddQuizModal()">Add Quiz</button>
+            </div>
+            <!-- Modal for adding a new quiz -->
+            <div id="addQuizModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeAddQuizModal()">&times;</span>
+                    <h2>Add New Quiz</h2>
+                    <form id="addQuizForm" onsubmit="return false;">
+                        <label for="quizName">Quiz Name:</label>
+                        <input type="text" id="quizName" name="quizName" required>
+                        <label for="quizDate">Date:</label>
+                        <input type="date" id="quizDate" name="quizDate" required>
+                        <label for="quizScore">Score:</label>
+                        <input type="text" id="quizScore" name="quizScore" required>
+                        <button onclick="addQuiz()">Add Quiz</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Modal for viewing quiz details -->
+            <div id="viewQuizModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeViewQuizModal()">&times;</span>
+                    <h2>Quiz Details</h2>
+                    <div id="quizDetails"></div>
+                    <button onclick="exportQuizAsPdf()">Export as PDF</button>
+                </div>
+            </div>
+            <!-- Modal for editing quiz details -->
+            <div id="editQuizModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditQuizModal()">&times;</span>
+                    <h2>Edit Quiz</h2>
+                    <form id="editQuizForm" onsubmit="return false;">
+                        <label for="editQuizName">Quiz Name:</label>
+                        <input type="text" id="editQuizName" name="editQuizName" required>
+                        <label for="editQuizDate">Date:</label>
+                        <input type="date" id="editQuizDate" name="editQuizDate" required>
+                        <label for="editQuizScore">Score:</label>
+                        <input type="text" id="editQuizScore" name="editQuizScore" required>
+                        <button onclick="saveEditedQuiz()">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Filter by Score functionality -->
+            <div class="filter-by-score">
+                <label for="minScore">Min Score:</label>
+                <input type="text" id="minScore" name="minScore" placeholder="Min score...">
+                <label for="maxScore">Max Score:</label>
+                <input type="text" id="maxScore" name="maxScore" placeholder="Max score...">
+                <button onclick="filterByScore()">Filter</button>
+            </div>
+            <!-- Export All Quizzes functionality -->
+            <div class="download-btn">
+                <button onclick="exportAllQuizzes()">Export All Quizzes</button>
+            </div>
+            <!-- Reset Pagination functionality -->
+            <div class="reset-pagination">
+                <button onclick="resetPagination()">Reset Pagination</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sample quiz history data (replace with actual data from backend)
+        var quizHistoryData = [
+            { date: "2024-04-10", quizName: "Math Quiz", score: "80%" },
+            { date: "2024-04-08", quizName: "History Quiz", score: "75%" },
+            { date: "2024-04-05", quizName: "Science Quiz", score: "90%" },
+            { date: "2024-04-03", quizName: "Geography Quiz", score: "85%" },
+            { date: "2024-04-01", quizName: "English Quiz", score: "95%" },
+            { date: "2024-03-30", quizName: "Physics Quiz", score: "70%" }
+        ];
+
+        var currentPage = 1;
+        var quizzesPerPage = 3;
+
+        // Function to render quiz history table rows for a specific page
+        function renderQuizHistoryRows(quizHistory) {
+            const quizHistoryBody = document.getElementById('quizHistoryBody');
+            quizHistoryBody.innerHTML = '';
+            const startIndex = (currentPage - 1) * quizzesPerPage;
+            const endIndex = startIndex + quizzesPerPage;
+            const currentQuizzes = quizHistory.slice(startIndex, endIndex);
+            currentQuizzes.forEach(quiz => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${quiz.date}</td>
+                    <td>${quiz.quizName}</td>
+                    <td>${quiz.score}</td>
+                    <td>
+                        <button onclick="editQuiz('${quiz.date}')">Edit</button>
+                        <button onclick="deleteQuiz('${quiz.date}')">Delete</button>
+                        <button onclick="openViewQuizModal('${quiz.date}')">View Details</button>
+                    </td>
+                `;
+                quizHistoryBody.appendChild(row);
+            });
+        }
+
+        // Function to sort quiz history by date
+        function sortQuizHistory() {
+            quizHistoryData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            renderQuizHistoryRows(quizHistoryData);
+        }
+
+        // Function to filter quiz history by quiz name
+        document.getElementById('searchBtn').addEventListener('click', function () {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filteredHistory = quizHistoryData.filter(quiz => quiz.quizName.toLowerCase().includes(searchQuery));
+            renderQuizHistoryRows(filteredHistory);
+        });
+
+        // Function to handle pagination: previous page
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderQuizHistoryRows(quizHistoryData);
+            }
+        }
+
+        // Function to handle pagination: next page
+        function nextPage() {
+            const totalPages = Math.ceil(quizHistoryData.length / quizzesPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderQuizHistoryRows(quizHistoryData);
+            }
+        }
+
+        // Function to download quiz history as CSV
+        function downloadQuizHistory() {
+            const csvContent = "data:text/csv;charset=utf-8," + quizHistoryData.map(quiz => Object.values(quiz).join(',')).join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "quiz_history.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        // Function to edit a quiz entry
+        function editQuiz(date) {
+            var quiz = quizHistoryData.find(q => q.date === date);
+            document.getElementById('editQuizName').value = quiz.quizName;
+            document.getElementById('editQuizDate').value = quiz.date;
+            document.getElementById('editQuizScore').value = quiz.score;
+            document.getElementById('editQuizModal').style.display = 'block';
+        }
+
+        // Function to delete a quiz entry
+        function deleteQuiz(date) {
+            // Add your delete logic here
+            console.log('Delete quiz:', date);
+        }
+
+        // Function to close the modal for editing a quiz
+        function closeEditQuizModal() {
+            document.getElementById('editQuizModal').style.display = 'none';
+        }
+
+        // Function to save edited quiz details
+        function saveEditedQuiz() {
+            var editedQuiz = {
+                quizName: document.getElementById('editQuizName').value,
+                date: document.getElementById('editQuizDate').value,
+                score: document.getElementById('editQuizScore').value
+            };
+            // Find the index of the edited quiz in the quizHistoryData array
+            var index = quizHistoryData.findIndex(q => q.date === editedQuiz.date);
+            // Update the quiz details
+            quizHistoryData[index] = editedQuiz;
+            // Close the modal
+            closeEditQuizModal();
+            // Re-render quiz history
+            renderQuizHistoryRows(quizHistoryData);
+        }
+
+        // Function to open the modal for adding a new quiz
+        function openAddQuizModal() {
+            document.getElementById('addQuizModal').style.display = 'block';
+        }
+
+        // Function to close the modal for adding a new quiz
+        function closeAddQuizModal() {
+            document.getElementById('addQuizModal').style.display = 'none';
+        }
+
+        // Function to add a new quiz
+        function addQuiz() {
+            var quizName = document.getElementById('quizName').value;
+            var quizDate = document.getElementById('quizDate').value;
+            var quizScore = document.getElementById('quizScore').value;
+            var newQuiz = { quizName: quizName, date: quizDate, score: quizScore };
+            quizHistoryData.push(newQuiz);
+            renderQuizHistoryRows(quizHistoryData);
+            closeAddQuizModal();
+        }
+
+        // Function to open the modal for viewing quiz details
+        function openViewQuizModal(date) {
+            var quiz = quizHistoryData.find(q => q.date === date);
+            document.getElementById('quizDetails').innerHTML = `
+                <p><strong>Date:</strong> ${quiz.date}</p>
+                <p><strong>Quiz Name:</strong> ${quiz.quizName}</p>
+                <p><strong>Score:</strong> ${quiz.score}</p>
+            `;
+            document.getElementById('viewQuizModal').style.display = 'block';
+        }
+
+        // Function to close the modal for viewing quiz details
+        function closeViewQuizModal() {
+            document.getElementById('viewQuizModal').style.display = 'none';
+        }
+
+        // Function to filter quiz history by score range
+        function filterByScore() {
+            var minScore = parseFloat(document.getElementById('minScore').value);
+            var maxScore = parseFloat(document.getElementById('maxScore').value);
+            var filteredHistory = quizHistoryData.filter(quiz => {
+                var score = parseFloat(quiz.score);
+                return (!isNaN(minScore) ? score >= minScore : true) &&
+                    (!isNaN(maxScore) ? score <= maxScore : true);
+            });
+            renderQuizHistoryRows(filteredHistory);
+        }
+
+        // Function to export all quizzes as a CSV
+        function exportAllQuizzes() {
+            const csvContent = "data:text/csv;charset=utf-8," + quizHistoryData.map(quiz => Object.values(quiz).join(',')).join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "all_quizzes.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        // Function to reset pagination and show all quizzes on one page
+        function resetPagination() {
+            currentPage = 1;
+            renderQuizHistoryRows(quizHistoryData);
+        }
+
+        // Function to clear search input and show all quizzes
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderQuizHistoryRows(quizHistoryData);
+        }
+
+        // Initial rendering of quiz history table
+        renderQuizHistoryRows(quizHistoryData);
+    </script>
+</body>
+
+</html>
