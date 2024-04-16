@@ -465,7 +465,10 @@
             { date: "2024-04-01", quizName: "English Quiz", score: "95%" },
             { date: "2024-03-30", quizName: "Physics Quiz", score: "70%" }
         ];
-        
+        loginBtn = document.querySelector(".login");
+        loginBtn.addEventListener("click",()=>{
+            window.location.href="profile.html"
+        })
         var currentPage = 1;
         var quizzesPerPage = document.getElementById("QuizPerPage").values;
 

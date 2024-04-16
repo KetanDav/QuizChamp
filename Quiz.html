@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- 1,4 ,6,9,10-->
     <meta charset="UTF-8">
@@ -7,144 +8,79 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-
-        *{
-            margin: 0;
-            font-family: 'Titillium Web';
-        }
-        body{
-            background-image: url(back1.jpg);
-            background-size: cover;
-            backdrop-filter:blur(2px);
-            overflow: hidden;
-        }
-        .BlurLayer{
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            background-color: rgba(0, 0, 0, 0.586);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .qCard{
-            background-color: rgba(0, 0, 0, 0.44);
-            width: 60vw;
-            height: 50vh;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(1px);
-            border: 4px solid rgb(251,29,125);
-            border-radius: 7px;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-        }
-        .Q{
-            width: 100%;
-            height: 35%;
-            background-color: rgba(0, 0, 0, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .inQ{
-            width: 90%;
-            height: 75%;
-            background-color: rgb(251, 29, 125);
-            border-radius: 100px;
-        }
-        .options{
-            width: 100%;
-            height: 65%;
-            background-color: rgba(137, 43, 226, 0);
-            display: grid;
-            grid-template-columns: auto auto;
-        }
-        .option{
-            width: auto;
-            margin: 35px 90px;
-            border-radius: 100px;
-            height: auto;
-            cursor: pointer;
-            font-size: 25px;
-            text-align: center;
-            background-color: rgb(255, 255, 255);
-        }
-        .otherBtns{
-            width: 60vw;
-            height: 10%;
-            background-color: rgb(251,29,125);
-            border-radius: 7px;
-            border-top-left-radius: 0px;
-            border-top-right-radius: 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-        }
-        .bookmark,.skip{
-            width: 25%;
-            height: 65%;
-            background-color: rgba(255, 255, 255, 0.811);
-            border: 3px solid black;
-            border-radius: 109px;
-            display: flex;
-            justify-content:  center;
-            align-items: center;
-            font-size: 30px;
-            cursor: pointer;
-
-        }
-        .timer{
-            height: 95px;
-            width: 95px;
-            border-radius: 100%;
-            border: 3px solid black;
-            background-color: rgba(255, 255, 255, 0.811);
-            display: flex;
-            justify-content:  center;
-            align-items: center;
-            font-size: 30px;
-        }
-        .fa{
-            font-size: 50px;
-            margin-right: 10px;
-        }
-        .realQ{
-            text-align: center;
-            font-size: 23px;
-        }
+        
     </style>
 </head>
+
 <body>
     <div class="BlurLayer">
-        <div class="qCard">
-            <div class="Q">
-                <div class="inQ">
-                    <div class="realQ"></div>
+        <div class="dropdown-container" id="dropdownContainer">
+            <label for="numQuestions">Select Number of Questions:</label>
+            <select id="numQuestions" class="dropdown">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <br>
+            <label for="category">Select Category:</label>
+            <select id="category" class="dropdown">
+                <option value="9">General Knowledge</option>
+                <option value="10">Entertainment: Books</option>
+                <option value="11">Entertainment: Film</option>
+                <option value="12">Entertainment: Music</option>
+                <option value="13">Entertainment: Musicals & Theatres</option>
+                <option value="14">Entertainment: Television</option>
+                <option value="15">Entertainment: Video Games</option>
+                <option value="16">Entertainment: Board Games</option>
+                <option value="17">Science & Nature</option>
+                <option value="18">Science: Computers</option>
+                <option value="19">Science: Mathematics</option>
+                <option value="20">Mythology</option>
+                <option value="21">Sports</option>
+                <option value="22">Geography</option>
+                <option value="23">History</option>
+                <option value="24">Politics</option>
+                <option value="25">Art</option>
+                <option value="26">Celebrities</option>
+                <option value="27">Animals</option>
+                <option value="28">Vehicles</option>
+                <option value="29">Entertainment: Comics</option>
+                <option value="30">Science: Gadgets</option>
+                <option value="31">Entertainment: Japanese Anime & Manga</option>
+                <option value="32">Entertainment: Cartoon & Animations</option>
+            </select>
+            <br>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <div id="quizContainer" style="display: none;">
+            <div class="qCard">
+                <div class="Q">
+                    <div class="inQ">
+                        <div class="realQ"></div>
+                    </div>
+                </div>
+                <div class="options">
+                    <div class="option"></div>
+                    <div class="option"></div>
+                    <div class="option"></div>
+                    <div class="option"></div>
                 </div>
             </div>
-            <div class="options">
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
+            <div class="otherBtns" id="otherButtons" style="display: none;">
+                <div class="bookmark">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                    BOOKMARK
+                </div>
+                <div class="timer">
+                    30
+                </div>
+                <div class="skip">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    SKIP
+                </div>
             </div>
-        </div>
-        <div class="otherBtns">
-            <div class="bookmark">
-                <i class="fa fa-bookmark" aria-hidden="true"></i>
-                BOOKMARK
-            </div>
-            <div class="timer">
-                30
-            </div>
-            <div class="skip" onclick="skipQuestion()">
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                SKIP
-            </div>
+
         </div>
     </div>
     <script>
@@ -153,35 +89,39 @@
             const optionsContainer = document.querySelector('.options');
             const optionsArray = document.querySelectorAll('.option'); // Use querySelectorAll to get all elements with the class 'option'
             const timerElement = document.querySelector('.timer');
+            const numQuestionsDropdown = document.getElementById('numQuestions');
+            const categoryDropdown = document.getElementById('category');
+            const dropdownContainer = document.getElementById('dropdownContainer');
+            const quizContainer = document.getElementById('quizContainer');
+            const otherButtons = document.getElementById('otherButtons');
 
-            async function fetchQuizData(amount, category) {
+            async function fetchQuizData(numQuestions, category) {
                 try {
-                    const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=easy&type=multiple`;
-                    let response = await fetch(apiUrl);
+                    let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
                     let data = await response.json();
                     return data.results;
                 } catch (error) {
                     console.error("Error fetching quiz data:", error);
-                    return []; // Return an empty array if there's an error
+                    return [];
                 }
             }
 
             let quizData = [];
             let currentQuestionIndex = 0;
             let countdown;
-            let shuffledArray; // Declare shuffledArray as a global variable
+            let shuffledArray;
 
             async function initializeQuiz() {
-                const numberOfQuestions = prompt("Enter the number of questions:");
-                const category = prompt("Enter the category of questions (e.g., 9 for General Knowledge):");
-                
-                if (numberOfQuestions && category) {
-                    quizData = await fetchQuizData(numberOfQuestions, category);
-                    displayQuestion();
-                    startTimer();
-                } else {
-                    alert("Please enter valid inputs.");
-                }
+                const selectedNumQuestions = parseInt(numQuestionsDropdown.value);
+                const selectedCategory = categoryDropdown.value;
+                quizData = await fetchQuizData(parseInt(selectedNumQuestions), selectedCategory);
+                console.log(quizData)
+                dropdownContainer.style.display = 'none'; // Hide dropdowns
+                quizContainer.style.display = 'flex'; // Show quiz container
+                quizContainer.style.flexDirection = 'column'; // Set flex direction to column
+                otherButtons.style.display = 'flex'; // Show other buttons
+                displayQuestion();
+                startTimer();
             }
 
             function resetOptionColors() {
@@ -190,37 +130,42 @@
                 });
             }
 
-            function displayQuestion() {
-                resetOptionColors();
+            async function displayQuestion() {
+                await resetOptionColors();
                 const currentQuestion = quizData[currentQuestionIndex];
-                const questionNumber = currentQuestionIndex + 1; // Question numbers start from 1
+                if (!currentQuestion) {
+                    console.error('Current question is undefined or null.');
+                    return;
+                }
+                const questionNumber = currentQuestionIndex + 1;
+                console.log("Current question index:", currentQuestionIndex);
                 questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
 
                 function shuffleArray(array) {
                     for (let i = array.length - 1; i > 0; i--) {
                         const randomIndex = Math.floor(Math.random() * (i + 1));
-                        
+
                         [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
                     }
                     return array;
                 }
-                oarray=currentQuestion.incorrect_answers;
+                oarray = currentQuestion.incorrect_answers;
                 oarray.push(currentQuestion.correct_answer)
-                shuffledArray = shuffleArray(oarray); // Assign the shuffled array to the global variable
+                shuffledArray = shuffleArray(oarray);
                 console.log(shuffledArray);
-                for(let i = 0; i < 4; i++) {
+                for (let i = 0; i < 4; i++) {
                     optionsArray[i].innerHTML = shuffledArray[i];
                 }
 
-                optionsArray.forEach((option)=>{
-                    option.addEventListener("click",()=>{
-                        selectOption(option); // Pass the clicked option to selectOption function
+                optionsArray.forEach((option) => {
+                    option.addEventListener("click", () => {
+                        selectOption(option);
                     })
                 });
             }
 
-            function selectOption(option) {
-                clearInterval(countdown);
+            async function selectOption(option) {
+                await clearInterval(intervalId);
                 const selectedOption = option.textContent;
                 const correctAnswer = quizData[currentQuestionIndex].correct_answer;
 
@@ -234,40 +179,52 @@
                 }
 
                 // Move to the next question after a short delay
-                setTimeout(nextQuestion, 1000);
+                nextQuestion();
             }
 
-            function nextQuestion() {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < quizData.length) {
-                    displayQuestion();
-                    startTimer();
-                } else {
-                    clearInterval(countdown);
-                    console.log("Helooooooooooooooooooooooooooooooooooo")
-                    questionElement.textContent = 'Quiz completed!';
-                    optionsContainer.innerHTML = ''; // Clear options
-                    timerElement.textContent = ''; // Clear timer
-                    redirectToResultPage();
-                }
+            async function nextQuestion() {
+                clearInterval(intervalId);
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        if (currentQuestionIndex < quizData.length) {
+                            displayQuestion();
+                            startTimer();
+                        } else {
+                            console.log("Helooooooooooooooooooooooooooooooooooo")
+                            questionElement.textContent = 'Quiz completed!';
+                            optionsContainer.innerHTML = ''; // Clear options
+                            timerElement.textContent = ''; // Clear timer
+                            redirectToResultPage();
+                        }
+                        resolve();
+                    }, 1000); // Delay of 1 second (1000 milliseconds)
+                });
             }
-
-            function startTimer() {
+            var intervalId;
+            async function startTimer() {
                 let secondsLeft = 30;
                 timerElement.textContent = secondsLeft;
 
-                countdown = setInterval(() => {
-                    secondsLeft--;
-                    timerElement.textContent = secondsLeft;
-                    if (secondsLeft === 0) {
-                        clearInterval(countdown);
-                        nextQuestion(); 
-                    }
-                }, 1000);
+                const timerPromise = new Promise((resolve) => {
+                    intervalId = setInterval(() => {
+                        secondsLeft--;
+                        timerElement.textContent = secondsLeft;
+                        if (secondsLeft === 0) {
+                            clearInterval(intervalId);
+                            resolve();
+                        }
+                    }, 1000);
+                });
+
+                await timerPromise;
+                // Timer has completed, do something if needed
+                // For example, move to the next question
+                nextQuestion();
             }
 
             function skipQuestion() {
-                clearInterval(countdown); // Stop the timer
+                clearInterval(intervalId); // Stop the timer
                 nextQuestion(); // Skip to the next question
             }
 
@@ -276,11 +233,339 @@
                 window.location.href = "profile.html";
             }
 
-            initializeQuiz();
+            window.startQuiz = initializeQuiz; // Expose initializeQuiz function to start the quiz
             const skipButton = document.querySelector('.skip');
             skipButton.addEventListener('click', skipQuestion);
         });
 
+
     </script>
 </body>
+
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+            font-family: 'Titillium Web';
+        }
+
+        body {
+            background-image: url(back1.jpg);
+            background-size: cover;
+            backdrop-filter: blur(2px);
+            overflow: hidden;
+        }
+
+        .BlurLayer {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.586);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .qCard {
+            background-color: rgba(0, 0, 0, 0.44);
+            width: 60vw;
+            height: 50vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(1px);
+            border: 4px solid rgb(251, 29, 125);
+            border-radius: 7px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        .quizContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Q {
+            width: 100%;
+            height: 35%;
+            background-color: rgba(0, 0, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inQ {
+            width: 90%;
+            height: 75%;
+            background-color: rgb(251, 29, 125);
+            border-radius: 100px;
+        }
+
+        .options {
+            width: 100%;
+            height: 65%;
+            background-color: rgba(137, 43, 226, 0);
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .option {
+            width: auto;
+            margin: 35px 90px;
+            border-radius: 100px;
+            height: auto;
+            cursor: pointer;
+            font-size: 25px;
+            text-align: center;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .otherBtns {
+            width: 60vw;
+            height: 10%;
+            background-color: rgb(251, 29, 125);
+            border-radius: 7px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 18px 0px;
+            gap: 60px;
+        }
+
+        .bookmark,
+        .skip {
+            width: 25%;
+            height: 65%;
+            background-color: rgba(255, 255, 255, 0.811);
+            border: 3px solid black;
+            border-radius: 109px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+
+        }
+
+        .timer {
+            height: 95px;
+            width: 95px;
+            border-radius: 100%;
+            border: 3px solid black;
+            background-color: rgba(255, 255, 255, 0.811);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+
+        .fa {
+            font-size: 50px;
+            margin-right: 10px;
+        }
+
+        .realQ {
+            text-align: center;
+            font-size: 23px;
+        }
+
+        .dropdown-container {
+            margin-bottom: 20px;
+        }
+
+        .dropdown {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            visibility: visible;
+            /* Initially visible */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="BlurLayer">
+        <div class="dropdown-container" id="dropdownContainer">
+            <!-- Dropdowns and start button here -->
+        </div>
+        <div id="quizContainer" style="display: none;">
+            <div class="qCard">
+                <div class="Q">
+                    <div class="inQ">
+                        <div class="realQ"></div>
+                    </div>
+                </div>
+                <div class="options">
+                    <!-- Options here -->
+                </div>
+            </div>
+            <div class="otherBtns" id="otherButtons" style="display: none;">
+                <!-- Other buttons here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const questionElement = document.querySelector('.realQ');
+            const optionsContainer = document.querySelector('.options');
+            const optionsArray = Array.from(document.querySelectorAll('.option'));
+            const timerElement = document.querySelector('.timer');
+            const numQuestionsDropdown = document.getElementById('numQuestions');
+            const categoryDropdown = document.getElementById('category');
+            const dropdownContainer = document.getElementById('dropdownContainer');
+            const quizContainer = document.getElementById('quizContainer');
+            const otherButtons = document.getElementById('otherButtons');
+
+            async function fetchQuizData(numQuestions, category) {
+                try {
+                    let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
+                    let data = await response.json();
+                    return data.results;
+                } catch (error) {
+                    console.error("Error fetching quiz data:", error);
+                    return [];
+                }
+            }
+
+            let quizData = [];
+            let currentQuestionIndex = 0;
+            let countdown;
+
+            async function initializeQuiz() {
+                const selectedNumQuestions = parseInt(numQuestionsDropdown.value);
+                const selectedCategory = categoryDropdown.value;
+                quizData = await fetchQuizData(parseInt(selectedNumQuestions), selectedCategory);
+                console.log(quizData);
+                dropdownContainer.style.display = 'none';
+                quizContainer.style.display = 'flex';
+                quizContainer.style.flexDirection = 'column';
+                otherButtons.style.display = 'flex';
+                displayQuestion();
+                startTimer();
+            }
+
+            function resetOptionColors() {
+                optionsArray.forEach((option) => {
+                    option.style.backgroundColor = 'rgb(255, 255, 255)';
+                });
+            }
+
+            async function displayQuestion() {
+                await resetOptionColors();
+                const currentQuestion = quizData[currentQuestionIndex];
+                console.log(currentQuestion);
+                if (!currentQuestion) {
+                    console.error('Current question is undefined or null.');
+                    return;
+                }
+                const questionNumber = currentQuestionIndex + 1;
+                questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
+
+                const allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
+                const shuffledOptions = shuffleArray(allOptions);
+                for (let i = 0; i < optionsArray.length; i++) {
+                    optionsArray[i].textContent = shuffledOptions[i];
+                }
+
+                optionsArray.forEach((option) => {
+                    option.addEventListener("click", () => {
+                        selectOption(option);
+                    });
+                });
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            async function selectOption(option) {
+                console.log(countdown+ "Cleared");
+                clearInterval(countdown);
+                const selectedOption = option.textContent;
+                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
+
+                if (selectedOption === correctAnswer) {
+                    option.style.backgroundColor = '#4CAF50';
+                } else {
+                    option.style.backgroundColor = '#F44336';
+                    const correctIndex = optionsArray.findIndex((opt) => opt.textContent === correctAnswer);
+                    optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
+                }
+
+                nextQuestion();
+            }
+
+            async function nextQuestion() {
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        if (currentQuestionIndex < quizData.length) {
+                            displayQuestion();
+                            startTimer();
+                        } else {
+                            questionElement.textContent = 'Quiz completed!';
+                            optionsContainer.innerHTML = '';
+                            timerElement.textContent = '';
+                            redirectToResultPage();
+                        }
+                        resolve();
+                    }, 1000);
+                });
+            }
+
+            async function startTimer() {
+                let secondsLeft = 30;
+                timerElement.textContent = secondsLeft;
+
+                countdown = setInterval(() => {
+                    console.log("Started >>>>>>>>>> " + countdown);
+                    secondsLeft--;
+                    timerElement.textContent = secondsLeft;
+                    if (secondsLeft === 0) {
+                        console.log(countdown+ "Cleared");
+                        clearInterval(countdown);
+                        nextQuestion();
+                    }
+                }, 1000);
+            }
+
+            function skipQuestion() {
+                console.log(countdown)
+                console.log(countdown + "Cleared");
+                nextQuestion();
+            }
+
+            function redirectToResultPage() {
+                // Redirect to the result page
+                window.location.href = "profile.html";
+            }
+
+            window.startQuiz = initializeQuiz;
+            const skipButton = document.querySelector('.skip');
+            skipButton.addEventListener('click', skipQuestion);
+        });
+    </script>
+</body>
+
 </html>

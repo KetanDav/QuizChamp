@@ -417,7 +417,10 @@
             { date: "2024-04-01", name: "Bookmark 5" },
             { date: "2024-03-30", name: "Bookmark 6" }
         ];
-
+        loginBtn = document.querySelector(".login");
+        loginBtn.addEventListener("click",()=>{
+            window.location.href="profile.html"
+        })
         var currentPage = 1;
         var bookmarksPerPage = 6;
 
