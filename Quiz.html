@@ -153,10 +153,11 @@
             const optionsContainer = document.querySelector('.options');
             const optionsArray = document.querySelectorAll('.option'); // Use querySelectorAll to get all elements with the class 'option'
             const timerElement = document.querySelector('.timer');
-        
-            async function fetchQuizData() {
+
+            async function fetchQuizData(amount, category) {
                 try {
-                    let response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple");
+                    const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=easy&type=multiple`;
+                    let response = await fetch(apiUrl);
                     let data = await response.json();
                     return data.results;
                 } catch (error) {
@@ -164,29 +165,37 @@
                     return []; // Return an empty array if there's an error
                 }
             }
-        
+
             let quizData = [];
             let currentQuestionIndex = 0;
             let countdown;
             let shuffledArray; // Declare shuffledArray as a global variable
-        
+
             async function initializeQuiz() {
-                quizData = await fetchQuizData();
-                displayQuestion();
-                startTimer();
+                const numberOfQuestions = prompt("Enter the number of questions:");
+                const category = prompt("Enter the category of questions (e.g., 9 for General Knowledge):");
+                
+                if (numberOfQuestions && category) {
+                    quizData = await fetchQuizData(numberOfQuestions, category);
+                    displayQuestion();
+                    startTimer();
+                } else {
+                    alert("Please enter valid inputs.");
+                }
             }
+
             function resetOptionColors() {
                 optionsArray.forEach((option) => {
                     option.style.backgroundColor = 'rgb(255, 255, 255)'; // Reset to white background
                 });
             }
-            
+
             function displayQuestion() {
                 resetOptionColors();
                 const currentQuestion = quizData[currentQuestionIndex];
                 const questionNumber = currentQuestionIndex + 1; // Question numbers start from 1
                 questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
-        
+
                 function shuffleArray(array) {
                     for (let i = array.length - 1; i > 0; i--) {
                         const randomIndex = Math.floor(Math.random() * (i + 1));
@@ -200,20 +209,21 @@
                 shuffledArray = shuffleArray(oarray); // Assign the shuffled array to the global variable
                 console.log(shuffledArray);
                 for(let i = 0; i < 4; i++) {
-                    optionsArray[i].innerText = shuffledArray[i];
+                    optionsArray[i].innerHTML = shuffledArray[i];
                 }
-        
+
                 optionsArray.forEach((option)=>{
                     option.addEventListener("click",()=>{
                         selectOption(option); // Pass the clicked option to selectOption function
                     })
                 });
             }
+
             function selectOption(option) {
                 clearInterval(countdown);
                 const selectedOption = option.textContent;
                 const correctAnswer = quizData[currentQuestionIndex].correct_answer;
-        
+
                 if (selectedOption === correctAnswer) {
                     option.style.backgroundColor = '#4CAF50'; // Green color for correct answer
                 } else {
@@ -222,11 +232,11 @@
                     // Highlight the correct answer
                     optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
                 }
-        
+
                 // Move to the next question after a short delay
                 setTimeout(nextQuestion, 1000);
             }
-        
+
             function nextQuestion() {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < quizData.length) {
@@ -241,11 +251,11 @@
                     redirectToResultPage();
                 }
             }
-        
+
             function startTimer() {
                 let secondsLeft = 30;
                 timerElement.textContent = secondsLeft;
-        
+
                 countdown = setInterval(() => {
                     secondsLeft--;
                     timerElement.textContent = secondsLeft;
@@ -255,20 +265,22 @@
                     }
                 }, 1000);
             }
-        
+
             function skipQuestion() {
                 clearInterval(countdown); // Stop the timer
                 nextQuestion(); // Skip to the next question
             }
+
             function redirectToResultPage() {
                 // Redirect to the result page
                 window.location.href = "profile.html";
             }
+
             initializeQuiz();
             const skipButton = document.querySelector('.skip');
             skipButton.addEventListener('click', skipQuestion);
         });
-        
+
     </script>
 </body>
 </html>

@@ -32,7 +32,7 @@
             z-index: 5;
             position: sticky;
             top: 0;
-            background-color: #333;
+            background-color: #000000;
             color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -80,11 +80,13 @@
 
         .layer {
             width: 100vw;
+            height: 100vh;
+            background-color: black;
         }
 
         .profile {
             background-color: #fff;
-            padding: 20px;
+            padding: 40px 60px;
             margin: 40px 20px;
             border-radius: 20px;
             overflow: hidden;
@@ -319,6 +321,14 @@
         button[type="button"]:hover {
             background-color: #ffdb58;
         }
+        .QperPage{
+            text-align: right;
+            margin: -40px 20px 20px 20px;
+        }
+        .QuizPerPage{
+            border:2px solid #fcc822;
+            background-color: red;
+        }
     </style>
 </head>
 
@@ -345,6 +355,16 @@
                 <button id="clearBtn" onclick="clearSearch()">Clear</button>
             </div>
             <h2>Quiz History</h2>
+            <h4 class="QperPage"><th>
+                <p>Quiz Per Page</p>
+                <select name="QuizPerPage" id="QperP">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="2">2</option>
+                    <option value="20">20</option>
+                    <option value="15">15</option>
+                </select>
+            </th></h4>
             <div class="quiz-history">
                 <table>
                     <thead>
@@ -356,6 +376,7 @@
                             <th>Quiz Name</th>
                             <th>Score</th>
                             <th>Actions</th>
+                            
                         </tr>
                     </thead>
                     <tbody id="quizHistoryBody">
@@ -414,6 +435,8 @@
                     </form>
                 </div>
             </div>
+
+            
             <!-- Filter by Score functionality -->
             <div class="filter-by-score">
                 <label for="minScore">Min Score:</label>
@@ -442,9 +465,13 @@
             { date: "2024-04-01", quizName: "English Quiz", score: "95%" },
             { date: "2024-03-30", quizName: "Physics Quiz", score: "70%" }
         ];
-
+        
         var currentPage = 1;
-        var quizzesPerPage = 3;
+        var quizzesPerPage = document.getElementById("QuizPerPage").values;
+
+
+
+
 
         // Function to render quiz history table rows for a specific page
         function renderQuizHistoryRows(quizHistory) {
@@ -469,11 +496,17 @@
             });
         }
 
+
+
+
         // Function to sort quiz history by date
         function sortQuizHistory() {
             quizHistoryData.sort((a, b) => new Date(a.date) - new Date(b.date));
             renderQuizHistoryRows(quizHistoryData);
         }
+
+
+
 
         // Function to filter quiz history by quiz name
         document.getElementById('searchBtn').addEventListener('click', function () {
@@ -482,6 +515,9 @@
             renderQuizHistoryRows(filteredHistory);
         });
 
+
+
+        
         // Function to handle pagination: previous page
         function prevPage() {
             if (currentPage > 1) {
