@@ -29,6 +29,14 @@ if (currentUserData) {
     usernameElements.forEach(function(element) {
         element.textContent = username;
     });
+
+    
+
 } else {
     console.log("No currentUser data found in local storage.");
 }
+
+setTimeout(()=>{
+    var greetingMessage = "Welcome back, " + username + "! We're glad to see you here.";
+    alert(greetingMessage);
+},1000)

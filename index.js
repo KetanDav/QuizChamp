@@ -1,10 +1,11 @@
+
 const loginBtn = document.querySelector('.login');
 const authPopup = document.querySelector('.auth');
+
+
 const IframePopUp=document.getElementById("logpopup")
 $(document).ready(function () {
-    // Click event handler for the login link
     $(".login").click(function () {
-        // IframePopUp.src="login.html";
         $(".auth").fadeToggle();
         
     });
@@ -29,19 +30,67 @@ function transitionBorderColor() {
 setInterval(transitionBorderColor, 500); // Change color every second
 
 
-const iframe = document.getElementById('logpopup');
 
-// Wait for the iframe to load
-iframe.onload = function() {
-    // Access the document inside the iframe
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
-    // Find the login button inside the iframe document
-    const loginButton = iframeDocument.getElementById('loginBtn');
+        // Click event handler for the login link
+        
 
-    // Attach an event listener to the login button
-    loginButton.addEventListener('click', function() {
-        // Redirect to profile.html when the login button is clicked
-        window.location.href = 'profile.html';
-    });
-};
+        // Function to handle login button click event within the iframe
+        function handleLogin() {
+            // Access the document inside the iframe
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Find the username and password input fields inside the iframe document
+            const usernameInput = iframeDocument.getElementById('name');
+            const passwordInput = iframeDocument.getElementById('pass');
+
+            // Retrieve the values of the username and password inputs
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            // Retrieve stored data from local storage
+            var storedData = localStorage.getItem('userData');
+        
+            // If no data is stored, return false
+            if (!storedData) {
+                alert("No user data found. Please sign up first.");
+                return false;
+            }
+            // Parse the stored JSON string back to a JavaScript object
+            var userData = JSON.parse(storedData);
+        
+            // Check if the provided username and password match any existing data
+            for (var i = 0; i < userData.length; i++) {
+                if (userData[i].username === username && userData[i].password === password) {
+                    var cUserData = {
+                        username: username,
+                        password: password
+                    };
+                    localStorage.setItem("currentUser", JSON.stringify(cUserData));
+                    alert("Login successful!");
+                // Redirect to dashboard or home page
+                    window.location.href = "profile.html";
+                    return true;
+                }
+            }
+        
+            alert("Invalid username or password. Please try again.");
+            return false; // Credentials are invalid
+        }
+
+
+
+
+
+
+        const iframe = document.getElementById('logpopup');
+        iframe.onload = function() {
+            // Access the document inside the iframe
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Find the login button inside the iframe document
+            const loginButton = iframeDocument.getElementById('loginBtn');
+
+            // Attach an event listener to the login button
+            loginButton.addEventListener('click', handleLogin);
+        };
