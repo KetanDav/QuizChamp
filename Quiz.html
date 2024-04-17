@@ -8,256 +8,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        
-    </style>
-</head>
 
-<body>
-    <div class="BlurLayer">
-        <div class="dropdown-container" id="dropdownContainer">
-            <label for="numQuestions">Select Number of Questions:</label>
-            <select id="numQuestions" class="dropdown">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <br>
-            <label for="category">Select Category:</label>
-            <select id="category" class="dropdown">
-                <option value="9">General Knowledge</option>
-                <option value="10">Entertainment: Books</option>
-                <option value="11">Entertainment: Film</option>
-                <option value="12">Entertainment: Music</option>
-                <option value="13">Entertainment: Musicals & Theatres</option>
-                <option value="14">Entertainment: Television</option>
-                <option value="15">Entertainment: Video Games</option>
-                <option value="16">Entertainment: Board Games</option>
-                <option value="17">Science & Nature</option>
-                <option value="18">Science: Computers</option>
-                <option value="19">Science: Mathematics</option>
-                <option value="20">Mythology</option>
-                <option value="21">Sports</option>
-                <option value="22">Geography</option>
-                <option value="23">History</option>
-                <option value="24">Politics</option>
-                <option value="25">Art</option>
-                <option value="26">Celebrities</option>
-                <option value="27">Animals</option>
-                <option value="28">Vehicles</option>
-                <option value="29">Entertainment: Comics</option>
-                <option value="30">Science: Gadgets</option>
-                <option value="31">Entertainment: Japanese Anime & Manga</option>
-                <option value="32">Entertainment: Cartoon & Animations</option>
-            </select>
-            <br>
-            <button onclick="startQuiz()">Start Quiz</button>
-        </div>
-        <div id="quizContainer" style="display: none;">
-            <div class="qCard">
-                <div class="Q">
-                    <div class="inQ">
-                        <div class="realQ"></div>
-                    </div>
-                </div>
-                <div class="options">
-                    <div class="option"></div>
-                    <div class="option"></div>
-                    <div class="option"></div>
-                    <div class="option"></div>
-                </div>
-            </div>
-            <div class="otherBtns" id="otherButtons" style="display: none;">
-                <div class="bookmark">
-                    <i class="fa fa-bookmark" aria-hidden="true"></i>
-                    BOOKMARK
-                </div>
-                <div class="timer">
-                    30
-                </div>
-                <div class="skip">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    SKIP
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const questionElement = document.querySelector('.inQ');
-            const optionsContainer = document.querySelector('.options');
-            const optionsArray = document.querySelectorAll('.option'); // Use querySelectorAll to get all elements with the class 'option'
-            const timerElement = document.querySelector('.timer');
-            const numQuestionsDropdown = document.getElementById('numQuestions');
-            const categoryDropdown = document.getElementById('category');
-            const dropdownContainer = document.getElementById('dropdownContainer');
-            const quizContainer = document.getElementById('quizContainer');
-            const otherButtons = document.getElementById('otherButtons');
-
-            async function fetchQuizData(numQuestions, category) {
-                try {
-                    let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
-                    let data = await response.json();
-                    return data.results;
-                } catch (error) {
-                    console.error("Error fetching quiz data:", error);
-                    return [];
-                }
-            }
-
-            let quizData = [];
-            let currentQuestionIndex = 0;
-            let countdown;
-            let shuffledArray;
-
-            async function initializeQuiz() {
-                const selectedNumQuestions = parseInt(numQuestionsDropdown.value);
-                const selectedCategory = categoryDropdown.value;
-                quizData = await fetchQuizData(parseInt(selectedNumQuestions), selectedCategory);
-                console.log(quizData)
-                dropdownContainer.style.display = 'none'; // Hide dropdowns
-                quizContainer.style.display = 'flex'; // Show quiz container
-                quizContainer.style.flexDirection = 'column'; // Set flex direction to column
-                otherButtons.style.display = 'flex'; // Show other buttons
-                displayQuestion();
-                startTimer();
-            }
-
-            function resetOptionColors() {
-                optionsArray.forEach((option) => {
-                    option.style.backgroundColor = 'rgb(255, 255, 255)'; // Reset to white background
-                });
-            }
-
-            async function displayQuestion() {
-                await resetOptionColors();
-                const currentQuestion = quizData[currentQuestionIndex];
-                if (!currentQuestion) {
-                    console.error('Current question is undefined or null.');
-                    return;
-                }
-                const questionNumber = currentQuestionIndex + 1;
-                console.log("Current question index:", currentQuestionIndex);
-                questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
-
-                function shuffleArray(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const randomIndex = Math.floor(Math.random() * (i + 1));
-
-                        [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
-                    }
-                    return array;
-                }
-                oarray = currentQuestion.incorrect_answers;
-                oarray.push(currentQuestion.correct_answer)
-                shuffledArray = shuffleArray(oarray);
-                console.log(shuffledArray);
-                for (let i = 0; i < 4; i++) {
-                    optionsArray[i].innerHTML = shuffledArray[i];
-                }
-
-                optionsArray.forEach((option) => {
-                    option.addEventListener("click", () => {
-                        selectOption(option);
-                    })
-                });
-            }
-
-            async function selectOption(option) {
-                await clearInterval(intervalId);
-                const selectedOption = option.textContent;
-                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
-
-                if (selectedOption === correctAnswer) {
-                    option.style.backgroundColor = '#4CAF50'; // Green color for correct answer
-                } else {
-                    option.style.backgroundColor = '#F44336'; // Red color for incorrect answer
-                    const correctIndex = shuffledArray.indexOf(correctAnswer);
-                    // Highlight the correct answer
-                    optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
-                }
-
-                // Move to the next question after a short delay
-                nextQuestion();
-            }
-
-            async function nextQuestion() {
-                clearInterval(intervalId);
-                await new Promise((resolve) => {
-                    setTimeout(() => {
-                        currentQuestionIndex++;
-                        if (currentQuestionIndex < quizData.length) {
-                            displayQuestion();
-                            startTimer();
-                        } else {
-                            console.log("Helooooooooooooooooooooooooooooooooooo")
-                            questionElement.textContent = 'Quiz completed!';
-                            optionsContainer.innerHTML = ''; // Clear options
-                            timerElement.textContent = ''; // Clear timer
-                            redirectToResultPage();
-                        }
-                        resolve();
-                    }, 1000); // Delay of 1 second (1000 milliseconds)
-                });
-            }
-            var intervalId;
-            async function startTimer() {
-                let secondsLeft = 30;
-                timerElement.textContent = secondsLeft;
-
-                const timerPromise = new Promise((resolve) => {
-                    intervalId = setInterval(() => {
-                        secondsLeft--;
-                        timerElement.textContent = secondsLeft;
-                        if (secondsLeft === 0) {
-                            clearInterval(intervalId);
-                            resolve();
-                        }
-                    }, 1000);
-                });
-
-                await timerPromise;
-                // Timer has completed, do something if needed
-                // For example, move to the next question
-                nextQuestion();
-            }
-
-            function skipQuestion() {
-                clearInterval(intervalId); // Stop the timer
-                nextQuestion(); // Skip to the next question
-            }
-
-            function redirectToResultPage() {
-                // Redirect to the result page
-                window.location.href = "profile.html";
-            }
-
-            window.startQuiz = initializeQuiz; // Expose initializeQuiz function to start the quiz
-            const skipButton = document.querySelector('.skip');
-            skipButton.addEventListener('click', skipQuestion);
-        });
-
-
-    </script>
-</body>
-
-</html> -->
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
 
         * {
             margin: 0;
@@ -403,7 +156,43 @@
 <body>
     <div class="BlurLayer">
         <div class="dropdown-container" id="dropdownContainer">
-            <!-- Dropdowns and start button here -->
+            <label for="numQuestions">Select Number of Questions:</label>
+            <select id="numQuestions" class="dropdown">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <br>
+            <label for="category">Select Category:</label>
+            <select id="category" class="dropdown">
+                <option value="9">General Knowledge</option>
+                <option value="10">Entertainment: Books</option>
+                <option value="11">Entertainment: Film</option>
+                <option value="12">Entertainment: Music</option>
+                <option value="13">Entertainment: Musicals & Theatres</option>
+                <option value="14">Entertainment: Television</option>
+                <option value="15">Entertainment: Video Games</option>
+                <option value="16">Entertainment: Board Games</option>
+                <option value="17">Science & Nature</option>
+                <option value="18">Science: Computers</option>
+                <option value="19">Science: Mathematics</option>
+                <option value="20">Mythology</option>
+                <option value="21">Sports</option>
+                <option value="22">Geography</option>
+                <option value="23">History</option>
+                <option value="24">Politics</option>
+                <option value="25">Art</option>
+                <option value="26">Celebrities</option>
+                <option value="27">Animals</option>
+                <option value="28">Vehicles</option>
+                <option value="29">Entertainment: Comics</option>
+                <option value="30">Science: Gadgets</option>
+                <option value="31">Entertainment: Japanese Anime & Manga</option>
+                <option value="32">Entertainment: Cartoon & Animations</option>
+            </select>
+            <br>
+            <button onclick="startQuiz()">Start Quiz</button>
         </div>
         <div id="quizContainer" style="display: none;">
             <div class="qCard">
@@ -413,12 +202,26 @@
                     </div>
                 </div>
                 <div class="options">
-                    <!-- Options here -->
+                    <div class="option"></div>
+                    <div class="option"></div>
+                    <div class="option"></div>
+                    <div class="option"></div>
                 </div>
             </div>
             <div class="otherBtns" id="otherButtons" style="display: none;">
-                <!-- Other buttons here -->
+                <div class="bookmark">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                    BOOKMARK
+                </div>
+                <div class="timer">
+                    30
+                </div>
+                <div class="skip">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    SKIP
+                </div>
             </div>
+
         </div>
     </div>
     <script>
@@ -568,4 +371,8 @@
     </script>
 </body>
 
-</html>
+</html> -->
+
+
+
+
