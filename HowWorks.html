@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="idea.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins';
+            background-color: rgb(0, 0, 0);
+            background-size: contain;
+            background-attachment: fixed;
+        }
+
+        nav {
+            display: flex;
+            height: 11vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 5;
+            position: sticky;
+            top: 0;
+            background-color: rgb(0, 0, 0);
+            left: 0;
+        }
+
+        .logo {
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        .icon {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon>a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: 23px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .icon>a>i {
+            font-size: 26px;
+        }
+
+        div.icon>a.login {
+            color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+            padding: 5px 10px;
+            background-color: transparent;
+            transition: background-color 1s, color 0.5s;
+        }
+
+        div.icon>a.login:hover {
+            color: rgb(0, 0, 0);
+            background-color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+        }
+
+        .profile {
+            background-color: #ffffff; /* Changed inner portion color */
+            padding: 10px;
+            margin: 10px 40px;
+            overflow: hidden;
+        }
+        .miniP {
+            width: 40px;
+        }
+
+        .fa {
+            font-size: 35px;
+        }
+
+        .body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #fff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FCC822, #4933FF);
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(73, 51, 255, 0.8) 0%, rgba(73, 51, 255, 0.6) 100%);
+            z-index: -1;
+            animation: gradientFlow 8s linear infinite alternate;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .header h1 {
+            font-size: 48px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .header h1:hover {
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .main-content {
+            margin-top: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        h2 {
+            color: #4933FF;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h2:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #4933FF;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 5px 0;
+            background-color: #FCC822;
+            color: white;
+            position: sticky;
+            bottom: 0px;
+        }
+
+        /* Button Styles */
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4933FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #311eff;
+        }
+
+        /* Feature Styles */
+
+        .feature {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature p {
+            margin-bottom: 10px;
+        }
+
+        .feature img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Description Toggle */
+
+        .description {
+            display: none;
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .show-description {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer">
+        <nav>
+            <div class="logoholder">
+                <img src="logo1k.png" alt="" class="logo">
+            </div>
+            <div class="icon">
+                <a href="#">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
+                <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                <a href="#">Contect us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                <a href="#" class="login">
+                    <img src="profile (1).png" alt="" class="miniP">
+                    <span class="pName">Elon Musk</span>
+                </a>
+            </div>
+        </nav>
+        <div class="profile">
+            <header class="header">
+                <h1 onclick="animateHeader()">How It Works</h1>
+            </header>
+
+            <div class="container">
+                <section class="main-content">
+                    <div class="section">
+                        <h2>Features</h2>
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                            </tr>
+                            <tr>
+                                <td class="feature" onclick="toggleDescription(this)">
+                                    User Authentication
+                                    <div class="description">Secure login and registration process.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="feature" onclick="toggleDescription(this)">
+                                    Profile Management
+                                    <div class="description">Users can manage their profiles, including viewing and
+                                        updating
+                                        personal information.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="feature" onclick="toggleDescription(this)">
+                                    Quiz Taking
+                                    <div class="description">Engage in quizzes on various topics.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="feature" onclick="toggleDescription(this)">
+                                    History Tracking
+                                    <div class="description">Keep track of previously taken quizzes.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="feature" onclick="toggleDescription(this)">
+                                    Bookmarking
+                                    <div class="description">Save favorite quizzes for later reference.</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="section">
+                        <h2>How It Works</h2>
+                        <p>This section explains the step-by-step process of using our platform:</p>
+                        <ol>
+                            <li>Register or log in to your account.</li>
+                            <li>Explore available quizzes or search for specific topics.</li>
+                            <li>Choose a quiz and start answering questions.</li>
+                            <li>After completing the quiz, review your results and see your score.</li>
+                            <li>Optionally, bookmark quizzes you enjoyed for future reference.</li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>&copy; 2024 Your Website. All rights reserved.</p>
+            <p>Thank you!</p>
+        </footer>
+    </div>
+    <script>
+        function animateHeader() {
+            document.querySelector('.header h1').style.animation = 'glow 2s linear infinite alternate';
+        }
+
+        function toggleDescription(element) {
+            const description = element.querySelector('.description');
+            description.classList.toggle('show-description');
+        }
+    </script>
+</body>
+
+</html>

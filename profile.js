@@ -40,3 +40,10 @@ setTimeout(()=>{
     var greetingMessage = "Welcome back, " + username + "! We're glad to see you here.";
     alert(greetingMessage);
 },1000)
+
+
+
+howWorks = document.querySelector("#howWorks");
+        howWorks.addEventListener("click",()=>{
+            window.location.href="HowWorks.html"
+        })
