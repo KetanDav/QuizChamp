@@ -64,7 +64,11 @@ setInterval(transitionBorderColor, 500); // Change color every second
                 if (userData[i].username === username && userData[i].password === password) {
                     var cUserData = {
                         username: username,
-                        password: password
+                        password: password,
+                        email:userData[i].email,
+                        solvedQuizz:userData[i].solvedQuizz,
+                        correcQuiz:userData[i].correcQuiz,
+                        lastQdate:userData[i].lastQdate
                     };
                     localStorage.setItem("currentUser", JSON.stringify(cUserData));
                     alert("Login successful!");

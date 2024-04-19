@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Champ</title>
     <!-- <link rel="icon" href="profile (1).png" type="image/x-icon"> -->
-    <link rel="shortcut icon" href="skill.png" type="image/x-icon">
+    <link rel="shortcut icon" href="idea.png" type="image/x-icon">
     <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         
@@ -23,11 +25,9 @@
 
         }
         body{
-            background-image:url(back11.jpg);
-            background-size: cover;
         }
         .BlackLayer{
-            background-color: rgba(0, 0, 0, 0.355);
+            background-color: rgba(0, 0, 0, 0.351);
             width: 100vw;
             height: 100vh;
         }
@@ -47,11 +47,14 @@
 
         .saprator {
             height: 3px;
-            background-color: #eabc42;
+            background-color: #FCC822;
             margin: 10px 40px;
             border-radius: 40px;
         }
-
+        .icon{
+            display: flex;
+            gap: 20px;
+        }
         .logo {
             width: 300px;
             margin-top: 10px;
@@ -62,8 +65,14 @@
             color: rgb(255, 255, 255);
             font-size: 23px;
             padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
         }
-
+        .icon>a>i{
+            font-size: 26px;
+        }
         div.icon>a.login {
             color: #FCC822;
             border: 2px solid #FCC822;
@@ -73,6 +82,7 @@
 
         div.icon>a.login:hover {
             color: white;
+            transform: scale3d(1.2,1.4,2);
             background-color: #FCC822;
             border: 2px solid #FCC822;
             margin: 0 30px 0 10px;
@@ -98,7 +108,7 @@
         }
 
         .right {
-            padding: 100px 0 0 100px;
+            padding: 80px 0 0 100px;
             width: 50%;
             display: flex;
             flex-direction: column;
@@ -129,6 +139,7 @@
 
         .left {
             width: 50%;
+            margin: 95px 0 0 0;
             height: 700px;
         }
 
@@ -160,19 +171,42 @@
             width: 100%;
             height: 100%;
         }
+        .backVideo{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 1000;
+            
+        }
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            object-fit: cover;
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
+    <video id="background-video" autoplay muted loop>
+        <source src="anime.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="BlackLayer">
     <nav>
         <div class="logoholder">
             <img src="logo1k.png" alt="" class="logo">
         </div>
         <div class="icon">
-            <a href="#">How it works?</a>
-            <a href="#">Features</a>
-            <a href="#">About us</a>
+            <a href="#" id="howWorks">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
+                <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                <a href="#">Contect us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
             <a href="#" class="login">Login</a>
         </div>
     </nav>
@@ -191,7 +225,7 @@
                     Start solving
                 </div>
                 <div class="know">
-                    Know more
+                    Know more <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </div>
             </div>
         </div>

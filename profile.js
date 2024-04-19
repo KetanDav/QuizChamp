@@ -45,5 +45,5 @@ setTimeout(()=>{
 
 howWorks = document.querySelector("#howWorks");
         howWorks.addEventListener("click",()=>{
-            window.location.href="HowWorks.html"
+            window.location.href="HowWorks.html";
         })

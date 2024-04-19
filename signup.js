@@ -36,7 +36,9 @@ function storeData() {
         username: username,
         email: email,
         password: password ,
-        solvedQuizz:150
+        solvedQuizz:0,
+        correcQuiz:0,
+        lastQdate:0
     };
 
     userData.push(newUserData);
