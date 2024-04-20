@@ -157,7 +157,7 @@
             width: 100%;
             height: 100%;
             z-index: -100;
-            object-fit:cover;
+            object-fit: cover;
             opacity: 1;
         }
     </style>
@@ -172,10 +172,12 @@
         <div class="dropdown-container" id="dropdownContainer">
             <label for="numQuestions">Select Number of Questions:</label>
             <select id="numQuestions" class="dropdown">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="5">3</option>
+                <option value="10">4</option>
+                <option value="20">5</option>
+                <option value="50">6</option>
             </select>
             <br>
             <label for="category">Select Category:</label>
@@ -292,9 +294,9 @@
                     console.error('Current question is undefined or null.');
                     return;
                 }
-                var questionNumber = currentQuestionIndex + 1;
+                var questionNumber = Math.log2( currentQuestionIndex + 1);
                 console.log(questionNumber)
-                questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
+                questionElement.innerHTML = `<div class="realQ">${questionNumber+1}. ${currentQuestion.question}</div>`;
 
                 var allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
                 var shuffledOptions = shuffleArray(allOptions);
@@ -320,16 +322,17 @@
             async function selectOption(option) {
                 console.log(countdown+ "Cleared");
                 clearInterval(countdown);
-
                 var selectedOption = option.textContent;
                 var correctAnswer = quizData[currentQuestionIndex].correct_answer;
 
                 if (selectedOption === correctAnswer) {
                     option.style.backgroundColor = '#4CAF50';
+                    console.log("TRUE");
                 } else {
                     option.style.backgroundColor = '#F44336';
                     var correctIndex = optionsArray.findIndex((opt) => opt.textContent === correctAnswer);
                     optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
+                    console.log("FALSE");
                 }
 
                 nextQuestion();
@@ -347,7 +350,6 @@
                             optionsContainer.innerHTML = '';
                             timerElement.textContent = '';
                             redirectToResultPage();
-                            clearInterval(countdown);
                         }
                         resolve();
                     }, 1000);
@@ -379,12 +381,17 @@
 
             function redirectToResultPage() {
                 // Redirect to the result page
+                
                 window.location.href = "profile.html";
             }
 
             window.startQuiz = initializeQuiz;
             const skipButton = document.querySelector('.skip');
             skipButton.addEventListener('click', skipQuestion);
+
+            
+
+
         });
     </script>
 </body>
