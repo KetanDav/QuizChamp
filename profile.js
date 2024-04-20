@@ -29,12 +29,21 @@ if (currentUserData) {
     usernameElements.forEach(function(element) {
         element.textContent = username;
     });
-
-    
-
+    document.getElementById("solvedQuizz").innerText=currentUser.solvedQuizz;
+    document.getElementById("correcQuiz").innerText=currentUser.correcQuiz;
+    if(currentUser.correcQuiz==0)
+    {
+        document.getElementById("accuracy").innerText=0;
+    }
+    else{
+        document.getElementById("accuracy").innerText=(currentUser.correcQuiz/currentUser.solvedQuizz)*100;
+    }
 } else {
     console.log("No currentUser data found in local storage.");
 }
+
+
+
 
 setTimeout(()=>{
     var greetingMessage = "Welcome back, " + username + "! We're glad to see you here.";

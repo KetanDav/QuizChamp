@@ -59,6 +59,10 @@
             width: 300px;
             margin-top: 10px;
         }
+        .logo:hover{
+            transition: 2s;
+            transform: rotate3d(1,0,0,360deg);
+        }
 
         .icon>a {
             text-decoration: none;
@@ -69,24 +73,37 @@
             justify-content: center;
             align-items: center;
             gap: 7px;
+            transition: .6s;
         }
-        .icon>a>i{
-            font-size: 26px;
+        .icon>a:hover{
+            text-decoration: none;
+            transition: .6s;
+            transform: scale3d(1.3,1.2,3);
+            color: #143675;
         }
         div.icon>a.login {
+            transition: .6s;
+
             color: #FCC822;
             border: 2px solid #FCC822;
             margin: 0 30px 0 10px;
             padding: 0 30px;
         }
-
-        div.icon>a.login:hover {
+         div.icon>a.login:hover {
             color: white;
-            transform: scale3d(1.2,1.4,2);
-            background-color: #FCC822;
-            border: 2px solid #FCC822;
+            transition: .6s;
+            transform: scale3d(1.3,1,1.4);
+            background-color: #132443;
+            border: 2px solid #132443;
             margin: 0 30px 0 10px;
         }
+
+        .icon>a>i{
+            font-size: 26px;
+        }
+        
+
+       
 
         .tagline {
             font-family: 'Titillium Web';

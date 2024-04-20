@@ -150,10 +150,24 @@
             visibility: visible;
             /* Initially visible */
         }
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            object-fit:cover;
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
+    <video id="background-video" autoplay muted loop>
+        <source src="footboll.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="BlurLayer">
         <div class="dropdown-container" id="dropdownContainer">
             <label for="numQuestions">Select Number of Questions:</label>
@@ -272,19 +286,20 @@
 
             async function displayQuestion() {
                 await resetOptionColors();
-                const currentQuestion = quizData[currentQuestionIndex];
+                var currentQuestion = quizData[currentQuestionIndex];
                 console.log(currentQuestion);
                 if (!currentQuestion) {
                     console.error('Current question is undefined or null.');
                     return;
                 }
-                const questionNumber = currentQuestionIndex + 1;
+                var questionNumber = currentQuestionIndex + 1;
+                console.log(questionNumber)
                 questionElement.innerHTML = `<div class="realQ">${questionNumber}. ${currentQuestion.question}</div>`;
 
-                const allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
-                const shuffledOptions = shuffleArray(allOptions);
+                var allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
+                var shuffledOptions = shuffleArray(allOptions);
                 for (let i = 0; i < optionsArray.length; i++) {
-                    optionsArray[i].textContent = shuffledOptions[i];
+                    optionsArray[i].innerHTML = shuffledOptions[i];
                 }
 
                 optionsArray.forEach((option) => {
@@ -296,7 +311,7 @@
 
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
+                    var j = Math.floor(Math.random() * (i + 1));
                     [array[i], array[j]] = [array[j], array[i]];
                 }
                 return array;
@@ -305,14 +320,15 @@
             async function selectOption(option) {
                 console.log(countdown+ "Cleared");
                 clearInterval(countdown);
-                const selectedOption = option.textContent;
-                const correctAnswer = quizData[currentQuestionIndex].correct_answer;
+
+                var selectedOption = option.textContent;
+                var correctAnswer = quizData[currentQuestionIndex].correct_answer;
 
                 if (selectedOption === correctAnswer) {
                     option.style.backgroundColor = '#4CAF50';
                 } else {
                     option.style.backgroundColor = '#F44336';
-                    const correctIndex = optionsArray.findIndex((opt) => opt.textContent === correctAnswer);
+                    var correctIndex = optionsArray.findIndex((opt) => opt.textContent === correctAnswer);
                     optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
                 }
 
@@ -331,6 +347,7 @@
                             optionsContainer.innerHTML = '';
                             timerElement.textContent = '';
                             redirectToResultPage();
+                            clearInterval(countdown);
                         }
                         resolve();
                     }, 1000);
@@ -342,6 +359,7 @@
                 timerElement.textContent = secondsLeft;
 
                 countdown = setInterval(() => {
+                    
                     console.log("Started >>>>>>>>>> " + countdown);
                     secondsLeft--;
                     timerElement.textContent = secondsLeft;

@@ -45,6 +45,10 @@
             width: 300px;
             margin-top: 10px;
         }
+        .logoholder:hover{
+            transition: .6s;
+            transform: scale3d(1.2,1.3.4);
+        }
         .icon{
             display: flex;
             gap: 20px;
@@ -58,6 +62,29 @@
             justify-content: center;
             align-items: center;
             gap: 7px;
+            transition: .6s;
+        }
+        .icon>a:hover{
+            text-decoration: none;
+            transition: .6s;
+            transform: scale3d(1.3,1.2,3);
+            color: #FCC822;
+        }
+        div.icon>a.login {
+            transition: .6s;
+
+            color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+            padding: 0 30px;
+        }
+        div.icon>a.login:hover {
+            color: white;
+            transition: .6s;
+            transform: scale3d(1.15,1,1.4);
+            background-color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
         }
         .icon>a>i{
             font-size: 26px;
@@ -70,13 +97,6 @@
             background-color: transparent;
             transition:background-color 1s,color 0.5s;
 
-        }
-
-        div.icon>a.login:hover {
-            color: rgb(0, 0, 0);
-            background-color: #FCC822;
-            border: 2px solid #FCC822;
-            margin: 0 30px 0 10px;
         }
 
         .layer {
@@ -204,10 +224,10 @@
                         <h1>921</h1>Rating
                     </div>
                     <div class="data">
-                        <h1>205</h1>Attempted Quiz
+                        <h1 id="solvedQuizz">205</h1>Attempted Quiz
                     </div>
                     <div class="data">
-                        <h1>185</h1>Corrected Quiz
+                        <h1 id="correcQuizz">185</h1>Corrected Quiz
                     </div>
                     <div class="data">
                         <h1>90.24%</h1>Accuracy
