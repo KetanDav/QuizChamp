@@ -1,5 +1,6 @@
 
 const loginBtn = document.querySelector('.login');
+const startBtn = document.querySelector('.start');
 const authPopup = document.querySelector('.auth');
 
 
@@ -7,6 +8,10 @@ const IframePopUp=document.getElementById("logpopup")
 $(document).ready(function () {
     $(".login").click(function () {
         $(".auth").fadeToggle();
+        
+    });
+    $(".start").click(function () {
+        $(".auth").fadeout();
         
     });
 });

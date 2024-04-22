@@ -251,7 +251,8 @@
             const dropdownContainer = document.getElementById('dropdownContainer');
             const quizContainer = document.getElementById('quizContainer');
             const otherButtons = document.getElementById('otherButtons');
-
+            const givenAnswer = [];
+            const givenQuiz = [];
             async function fetchQuizData(numQuestions, category) {
                 try {
                     let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
@@ -271,7 +272,12 @@
                 const selectedNumQuestions = parseInt(numQuestionsDropdown.value);
                 const selectedCategory = categoryDropdown.value;
                 quizData = await fetchQuizData(parseInt(selectedNumQuestions), selectedCategory);
-                console.log(quizData);
+                for(nn=0;nn<Math.floor(Math.log2(selectedNumQuestions)+1);nn++)
+            {
+                console.log(quizData[(2**nn)-1]);
+                givenQuiz.push(quizData[(2**nn)-1]);
+            }
+                console.log(givenQuiz);
                 dropdownContainer.style.display = 'none';
                 quizContainer.style.display = 'flex';
                 quizContainer.style.flexDirection = 'column';
@@ -288,8 +294,7 @@
 
             async function displayQuestion() {
                 await resetOptionColors();
-                var currentQuestion = quizData[currentQuestionIndex];
-                console.log(currentQuestion);
+                var currentQuestion = quizData[currentQuestionIndex]
                 if (!currentQuestion) {
                     console.error('Current question is undefined or null.');
                     return;
@@ -328,11 +333,13 @@
                 if (selectedOption === correctAnswer) {
                     option.style.backgroundColor = '#4CAF50';
                     console.log("TRUE");
+                    givenAnswer.push(1);
                 } else {
                     option.style.backgroundColor = '#F44336';
                     var correctIndex = optionsArray.findIndex((opt) => opt.textContent === correctAnswer);
                     optionsArray[correctIndex].style.backgroundColor = '#4CAF50';
                     console.log("FALSE");
+                    givenAnswer.push(0);
                 }
 
                 nextQuestion();
@@ -362,11 +369,11 @@
 
                 countdown = setInterval(() => {
                     
-                    console.log("Started >>>>>>>>>> " + countdown);
+                    console.log(" Started >>>>>>>>>> " + countdown);
                     secondsLeft--;
                     timerElement.textContent = secondsLeft;
                     if (secondsLeft === 0) {
-                        console.log(countdown+ "Cleared");
+                        console.log(countdown+  "Cleared");
                         clearInterval(countdown);
                         nextQuestion();
                     }
@@ -381,7 +388,7 @@
 
             function redirectToResultPage() {
                 // Redirect to the result page
-                
+                console.log(givenAnswer);
                 window.location.href = "profile.html";
             }
 
@@ -390,8 +397,12 @@
             skipButton.addEventListener('click', skipQuestion);
 
             
-
-
+            var UserJSON=localStorage.getItem("userData");
+            var currentUser=JSON.parse(UserJSON);
+            console.log(currentUser);
+            var currentUserJSON=localStorage.getItem("currentUser");
+            var currentUser=JSON.parse(currentUserJSON);
+            console.log(currentUser);
         });
     </script>
 </body>
