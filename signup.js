@@ -36,7 +36,7 @@ function storeData() {
         username: username,
         email: email,
         password: password ,
-        solvedQuizz:0,
+        solvedQuizz:[],
         correcQuiz:0,
         lastQdate:0
     };

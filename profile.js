@@ -29,7 +29,7 @@ if (currentUserData) {
     usernameElements.forEach(function(element) {
         element.textContent = username;
     });
-    document.getElementById("solvedQuizz").innerText=currentUser.solvedQuizz;
+    document.getElementById("solvedQuizz").innerText=currentUser.solvedQuizz.length;
     document.getElementById("correcQuiz").innerText=currentUser.correcQuiz;
     if(currentUser.correcQuiz==0)
     {

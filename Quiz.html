@@ -272,12 +272,26 @@
                 const selectedNumQuestions = parseInt(numQuestionsDropdown.value);
                 const selectedCategory = categoryDropdown.value;
                 quizData = await fetchQuizData(parseInt(selectedNumQuestions), selectedCategory);
-                for(nn=0;nn<Math.floor(Math.log2(selectedNumQuestions)+1);nn++)
+                for(nn=0;nn<Math.floor(Math.log2( selectedNumQuestions)+1);nn++)
             {
                 console.log(quizData[(2**nn)-1]);
                 givenQuiz.push(quizData[(2**nn)-1]);
             }
                 console.log(givenQuiz);
+
+
+                var currentUserJSON=localStorage.getItem("currentUser");
+            var currentUser=JSON.parse(currentUserJSON);
+            givenQuiz.forEach(Quiz =>{
+                currentUser.solvedQuizz.push(Quiz);
+            });
+            localStorage.setItem("currentUser",JSON.stringify(currentUser));
+
+
+
+
+
+
                 dropdownContainer.style.display = 'none';
                 quizContainer.style.display = 'flex';
                 quizContainer.style.flexDirection = 'column';
@@ -292,29 +306,33 @@
                 });
             }
 
+            optionsEventAdded=false;
             async function displayQuestion() {
                 await resetOptionColors();
-                var currentQuestion = quizData[currentQuestionIndex]
-                if (!currentQuestion) {
-                    console.error('Current question is undefined or null.');
-                    return;
-                }
-                var questionNumber = Math.log2( currentQuestionIndex + 1);
-                console.log(questionNumber)
-                questionElement.innerHTML = `<div class="realQ">${questionNumber+1}. ${currentQuestion.question}</div>`;
+        var currentQuestion = quizData[currentQuestionIndex];
+        if (!currentQuestion) {
+            console.error('Current question is undefined or null.');
+            return;
+        }
+        var questionNumber = Math.log2(currentQuestionIndex + 1);
+        console.log(questionNumber)
+        questionElement.innerHTML = `<div class="realQ">${questionNumber + 1}. ${currentQuestion.question}</div>`;
 
-                var allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
-                var shuffledOptions = shuffleArray(allOptions);
-                for (let i = 0; i < optionsArray.length; i++) {
-                    optionsArray[i].innerHTML = shuffledOptions[i];
-                }
+        var allOptions = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
+        var shuffledOptions = shuffleArray(allOptions);
+        for (let i = 0; i < optionsArray.length; i++) {
+            optionsArray[i].innerHTML = shuffledOptions[i];
+        }
 
-                optionsArray.forEach((option) => {
-                    option.addEventListener("click", () => {
-                        selectOption(option);
-                    });
-                });
-            }
+        if (!optionsEventAdded) { // Check if event listener has been added
+            optionsContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('option')) {
+                    selectOption(event.target);
+                }
+            });
+            optionsEventAdded = true; // Set flag to true indicating event listener is added
+        }
+    }
 
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -346,8 +364,7 @@
             }
 
             async function nextQuestion() {
-                await new Promise((resolve) => {
-                    setTimeout(() => {
+                await setTimeout(() => {
                         currentQuestionIndex++;
                         if (currentQuestionIndex < quizData.length) {
                             displayQuestion();
@@ -358,9 +375,8 @@
                             timerElement.textContent = '';
                             redirectToResultPage();
                         }
-                        resolve();
                     }, 1000);
-                });
+                
             }
 
             async function startTimer() {
@@ -387,8 +403,12 @@
             }
 
             function redirectToResultPage() {
-                // Redirect to the result page
-                console.log(givenAnswer);
+                console.log("Hellow This Problem Is Finnaly Solved");
+                //for(nn=0;nn<Math.floor(Math.log2(givenAnswer.length)-1);nn++)
+                //{
+
+                //}
+
                 window.location.href = "profile.html";
             }
 
@@ -400,8 +420,7 @@
             var UserJSON=localStorage.getItem("userData");
             var currentUser=JSON.parse(UserJSON);
             console.log(currentUser);
-            var currentUserJSON=localStorage.getItem("currentUser");
-            var currentUser=JSON.parse(currentUserJSON);
+            
             console.log(currentUser);
         });
     </script>
