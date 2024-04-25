@@ -45,14 +45,17 @@
             width: 300px;
             margin-top: 10px;
         }
-        .logoholder:hover{
+
+        .logoholder:hover {
             transition: .6s;
-            transform: scale3d(1.2,1.3.4);
+            transform: scale3d(1.2, 1.3.4);
         }
-        .icon{
+
+        .icon {
             display: flex;
             gap: 20px;
         }
+
         .icon>a {
             text-decoration: none;
             color: rgb(255, 255, 255);
@@ -64,12 +67,14 @@
             gap: 7px;
             transition: .6s;
         }
-        .icon>a:hover{
+
+        .icon>a:hover {
             text-decoration: none;
             transition: .6s;
-            transform: scale3d(1.3,1.2,3);
+            transform: scale3d(1.3, 1.2, 3);
             color: #FCC822;
         }
+
         div.icon>a.login {
             transition: .6s;
 
@@ -78,36 +83,52 @@
             margin: 0 30px 0 10px;
             padding: 0 30px;
         }
+
         div.icon>a.login:hover {
             color: white;
             transition: .6s;
-            transform: scale3d(1.15,1,1.4);
+            transform: scale3d(1.15, 1, 1.4);
             background-color: #FCC822;
             border: 2px solid #FCC822;
             margin: 0 30px 0 10px;
         }
-        .icon>a>i{
+
+        .icon>a>i {
             font-size: 26px;
         }
+
         div.icon>a.login {
             color: #FCC822;
             border: 2px solid #FCC822;
             margin: 0 30px 0 10px;
             padding: 5px 10px;
             background-color: transparent;
-            transition:background-color 1s,color 0.5s;
+            transition: background-color 1s, color 0.5s;
+        }
 
+        .miniP {
+            width: 40px;
         }
 
         .layer {
             width: 100vw;
         }
 
-        .profile {
+        .profile{
             background-color: white;
             padding: 10px;
             margin: 40px 40px;
             overflow: hidden;
+        }
+        .history {
+            background-color: white;
+            padding: 10px;
+            margin: 40px 40px;
+            overflow: hidden;
+            height: 80vh;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .pp {
@@ -123,9 +144,7 @@
             margin-bottom: 3px;
         }
 
-        .miniP {
-            width: 40px;
-        }
+
 
         .view {
             width: 100%;
@@ -150,7 +169,7 @@
         }
 
         .quizInfo {
-            
+
             border: 5px solid black;
             border-radius: 8px;
             display: grid;
@@ -162,20 +181,23 @@
             margin: 30px 50px;
             text-align: center;
         }
-        .qInfo{
+
+        .qInfo {
             display: flex;
             flex-direction: column;
             width: 80%;
             margin: 30px;
         }
-        .lowerBtn{
+
+        .lowerBtn {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 100px;
             padding: 20px;
         }
-        .lowerBtn > div{
+
+        .lowerBtn>div {
             background-color: #FCC822;
             padding: 5px 15px;
             border-radius: 8px;
@@ -186,8 +208,19 @@
             gap: 15px;
             cursor: pointer;
         }
-        .fa{
+
+        .fa {
             font-size: 35px;
+        }
+        .topIcons{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 40px;
+        }
+        .bottamIcons{
+            display: flex;
+            justify-content: center;
+            gap: 30px;
         }
     </style>
 </head>
@@ -219,31 +252,45 @@
                     <h3>Contect No. : 6355772342</h3>
                 </div>
                 <div class="qInfo">
-                <div class="quizInfo">
-                    <div class="data">
-                        <h1>921</h1>Rating
+                    <div class="quizInfo">
+                        <div class="data">
+                            <h1>921</h1>Rating
+                        </div>
+                        <div class="data">
+                            <h1 id="solvedQuizz">205</h1>Attempted Quiz
+                        </div>
+                        <div class="data">
+                            <h1 id="correcQuiz">185</h1>Corrected Quiz
+                        </div>
+                        <div class="data">
+                            <h1 id="accuracy">90.24%</h1>Accuracy
+                        </div>
+                        <div class="data">
+                            <h1>7 Days</h1>in row max
+                        </div>
+                        <div class="data">Quiz Streak</div>
                     </div>
-                    <div class="data">
-                        <h1 id="solvedQuizz">205</h1>Attempted Quiz
+                    <div class="lowerBtn">
+                        <div class="quiz"><i class="fa fa-flag" aria-hidden="true"></i>Start Quiz</div>
+                        <div class="history"><i class="fa fa-history" aria-hidden="true"></i>Quiz History</div>
+                        <div class="bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i>Quiz Bookmark</div>
                     </div>
-                    <div class="data">
-                        <h1 id="correcQuiz">185</h1>Corrected Quiz
-                    </div>
-                    <div class="data">
-                        <h1 id="accuracy">90.24%</h1>Accuracy
-                    </div>
-                    <div class="data">
-                        <h1>7 Days</h1>in row max
-                    </div>
-                    <div class="data">Quiz Streak</div>
                 </div>
-                <div class="lowerBtn">
-                    <div class="quiz"><i class="fa fa-flag" aria-hidden="true"></i>Start Quiz</div>
-                    <div class="history"><i class="fa fa-history" aria-hidden="true"></i>Quiz History</div>
-                    <div class="bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i>Quiz Bookmark</div>
-                </div>
-                </div>
+            </div>
+        </div>
+        <div class="history">
+            <div class="topIcons">
+                <i class="fa fa-arrow-left backArrow" aria-hidden="true"></i>
+                <h1>Quiz History</h1>
+                <i class="fa fa-filter filter" aria-hidden="true"></i>
+            </div>
+            <div class="quizz">
 
+            </div>
+            <div class="bottamIcons">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <h2>Pages</h2>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
         </div>
     </div>
@@ -251,3 +298,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+

@@ -33,10 +33,11 @@ if (currentUserData) {
     document.getElementById("correcQuiz").innerText=currentUser.correcQuiz;
     if(currentUser.correcQuiz==0)
     {
-        document.getElementById("accuracy").innerText=0;
+        document.getElementById("accuracy").innerText=0 + " %";
     }
     else{
-        document.getElementById("accuracy").innerText=(currentUser.correcQuiz/(currentUser.solvedQuizz.length))*100;
+        document.getElementById("accuracy").innerText=((currentUser.correcQuiz/(currentUser.solvedQuizz.length))*100).toFixed(2) + " %";
+
     }
 } else {
     console.log("No currentUser data found in local storage.");
@@ -56,3 +57,82 @@ howWorks = document.querySelector("#howWorks");
         howWorks.addEventListener("click",()=>{
             window.location.href="HowWorks.html";
         })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //History Page 
+
+
+        // Fetch quiz details from local storage
+function fetchQuizDetails() {
+    return JSON.parse(localStorage.getItem('quizDetails')) || [];
+}
+
+// Render quizzes on the current page
+function renderQuizzesOnPage(pageNumber, quizzesPerPage, quizDetails) {
+    const startIndex = (pageNumber - 1) * quizzesPerPage;
+    const endIndex = startIndex + quizzesPerPage;
+    const quizzesOnPage = quizDetails.slice(startIndex, endIndex);
+    const quizzContainer = document.querySelector('.quizz');
+    quizzContainer.innerHTML = '';
+    quizzesOnPage.forEach(quiz => {
+        const quizElement = document.createElement('div');
+        quizElement.classList.add('quiz');
+        quizElement.innerHTML = `
+            <h3>${quiz.quizName}</h3>
+            <p>Date: ${quiz.date}</p>
+            <p>Score: ${quiz.score}</p>
+        `;
+        quizzContainer.appendChild(quizElement);
+    });
+}
+
+// Update pagination buttons based on current page and total number of pages
+function updatePaginationButtons(currentPage, totalPages) {
+    const prevButton = document.querySelector('.bottamIcons .fa-angle-left');
+    const nextButton = document.querySelector('.bottamIcons .fa-angle-right');
+    prevButton.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+    nextButton.style.visibility = currentPage === totalPages ? 'hidden' : 'visible';
+}
+
+// Navigate to previous page
+function goToPrevPage() {
+    currentPage--;
+    renderQuizzesOnPage(currentPage, quizzesPerPage, quizDetails);
+    updatePaginationButtons(currentPage, totalPages);
+}
+
+// Navigate to next page
+function goToNextPage() {
+    currentPage++;
+    renderQuizzesOnPage(currentPage, quizzesPerPage, quizDetails);
+    updatePaginationButtons(currentPage, totalPages);
+}
+
+// Initialize the quiz details, current page, and quizzes per page
+let quizDetails = fetchQuizDetails();
+let currentPage = 1;
+const quizzesPerPage = 8;
+const totalPages = Math.ceil(quizDetails.length / quizzesPerPage);
+
+// Render initial quizzes on the first page
+renderQuizzesOnPage(currentPage, quizzesPerPage, quizDetails);
+updatePaginationButtons(currentPage, totalPages);
+
+// Event listeners for pagination buttons
+document.querySelector('.bottamIcons .fa-angle-left').addEventListener('click', goToPrevPage);
+document.querySelector('.bottamIcons .fa-angle-right').addEventListener('click', goToNextPage);
