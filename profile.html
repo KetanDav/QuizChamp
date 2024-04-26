@@ -120,7 +120,7 @@
             margin: 40px 40px;
             overflow: hidden;
         }
-        .history {
+        .historyPage {
             background-color: white;
             padding: 10px;
             margin: 40px 40px;
@@ -222,6 +222,39 @@
             justify-content: center;
             gap: 30px;
         }
+        .quizz{
+            height: 85%;
+            background-color: red;
+
+        }
+        .quiz1{
+            height: 15%;
+            background-color: yellow;
+            margin: 10px 20px;
+            padding: 10px 0 0 0;
+        }
+        .Question{
+            text-align: center;
+            padding: 10px 30px;
+            margin: 10px;
+            background-color: blue;
+            font-size: 20px;
+        }
+        .optns{
+            width: 100%;
+            height: 40%;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .optn{
+            width: 20%;
+            margin: 20px;
+            background-color: yellow;
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -266,7 +299,7 @@
                             <h1 id="accuracy">90.24%</h1>Accuracy
                         </div>
                         <div class="data">
-                            <h1>7 Days</h1>in row max
+                            <h1 id="streak">7 Days</h1>in row max
                         </div>
                         <div class="data">Quiz Streak</div>
                     </div>
@@ -278,14 +311,23 @@
                 </div>
             </div>
         </div>
-        <div class="history">
+        <div class="historyPage">
             <div class="topIcons">
                 <i class="fa fa-arrow-left backArrow" aria-hidden="true"></i>
                 <h1>Quiz History</h1>
                 <i class="fa fa-filter filter" aria-hidden="true"></i>
             </div>
             <div class="quizz">
-
+                <div class="quiz1">
+                    <div class="Question">What Fullform Of IWP (Innovative World Proggame)</div>
+                    <div class="optns">
+                        <div class="optn"></div>
+                        <div class="optn"></div>
+                        <div class="optn"></div>
+                        <div class="optn"></div>
+                    </div>
+                    <span>Date:</span><span>22/07/2006</span>
+                </div>
             </div>
             <div class="bottamIcons">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>

@@ -29,8 +29,23 @@ if (currentUserData) {
     usernameElements.forEach(function(element) {
         element.textContent = username;
     });
-    document.getElementById("solvedQuizz").innerText=currentUser.solvedQuizz.length;
+    var TtlQuiz=0;
+    for(i=0;i<currentUser.solvedQuizz.length;i++)
+    {
+        TtlQuiz+=currentUser.solvedQuizz[i].quiz.length;
+    }
+    document.getElementById("solvedQuizz").innerText=TtlQuiz;
     document.getElementById("correcQuiz").innerText=currentUser.correcQuiz;
+    console.log()
+    if(currentUser.streak==0)
+    {
+        currentUser.streak+=1;
+        document.getElementById("streak").innerText=0 + " Days";
+    }
+    else{
+        document.getElementById("streak").innerText=currentUser.streak + " Days";
+
+    }
     if(currentUser.correcQuiz==0)
     {
         document.getElementById("accuracy").innerText=0 + " %";
@@ -48,7 +63,7 @@ if (currentUserData) {
 
 setTimeout(()=>{
     var greetingMessage = "Welcome back, " + username + "! We're glad to see you here.";
-    alert(greetingMessage);
+    // alert(greetingMessage);
 },1000)
 
 
@@ -88,7 +103,7 @@ function renderQuizzesOnPage(pageNumber, quizzesPerPage, quizDetails) {
     const endIndex = startIndex + quizzesPerPage;
     const quizzesOnPage = quizDetails.slice(startIndex, endIndex);
     const quizzContainer = document.querySelector('.quizz');
-    quizzContainer.innerHTML = '';
+    // quizzContainer.innerHTML = '';
     quizzesOnPage.forEach(quiz => {
         const quizElement = document.createElement('div');
         quizElement.classList.add('quiz');

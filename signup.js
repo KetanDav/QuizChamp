@@ -31,6 +31,7 @@ function storeData() {
 
     var storedData = localStorage.getItem('userData');
     var userData = storedData ? JSON.parse(storedData) : [];
+    var currentDate = new Date().toLocaleDateString();
 
     var newUserData = {
         username: username,
@@ -38,7 +39,9 @@ function storeData() {
         password: password ,
         solvedQuizz:[],
         correcQuiz:0,
-        lastQdate:0
+        lastQdate:0,
+        streak:0,
+        streakDate:currentDate
     };
 
     userData.push(newUserData);

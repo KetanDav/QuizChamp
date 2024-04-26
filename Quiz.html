@@ -241,6 +241,7 @@
         </div>
     </div>
     <script>
+        var currentDate = new Date().toLocaleDateString();
         document.addEventListener("DOMContentLoaded", function () {
             const questionElement = document.querySelector('.realQ');
             const optionsContainer = document.querySelector('.options');
@@ -395,12 +396,43 @@
                 console.log(givenAnswer)
                 console.log(correctAns);
 
+                function parseDate(dateString) {
+                    // Split the date string into day, month, and year components
+                    var parts = dateString.split('/');
+                    
+                    // Parse the day, month, and year as integers
+                    var day = parseInt(parts[0], 10);
+                    var month = parseInt(parts[1], 10) - 1; // Months are zero-based in JavaScript Date objects
+                    var year = parseInt(parts[2], 10);
+                    
+                    // Create a new Date object with the parsed components
+                    return new Date(year, month, day);
+                }
 
                 var currentUserJSON = localStorage.getItem("currentUser");
                 var currentUser = JSON.parse(currentUserJSON);
-                quizData.forEach(Quiz => {
-                    currentUser.solvedQuizz.push(Quiz);
-                });
+                var currentDate = new Date().toLocaleDateString();
+                ccDate=parseDate(currentDate);
+                StreakDate=currentUser.streakDate;
+                ssDate = parseDate(StreakDate);
+                var difference = Math.abs(ccDate.getTime() - ssDate.getTime());
+                var oneDayInMillis = 1000 * 60 * 60 * 24;
+                if(2*oneDayInMillis>difference>=oneDayInMillis)
+                {
+                    currentUser.streak+=1;
+                }
+                else if(difference>2*oneDayInMillis){
+                    currentUser.streak=1;
+                }
+                sessionName = prompt("Session name?");
+                currentUser.streakDate=currentDate;
+                let combinedObject = {
+                    quiz: quizData,
+                    date: currentDate,
+                    sessionName:sessionName,
+                    category:quizData[0].category
+                };
+    currentUser.solvedQuizz.push(combinedObject);
                 currentUser.correcQuiz+= correctAns;
                 localStorage.setItem("currentUser", JSON.stringify(currentUser));
                 window.location.href = "profile.html";
