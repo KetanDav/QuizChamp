@@ -415,6 +415,9 @@
                 ccDate=parseDate(currentDate);
                 StreakDate=currentUser.streakDate;
                 ssDate = parseDate(StreakDate);
+                if(currentUser.streak==0){
+                    currentUser.streak=1;
+                }
                 var difference = Math.abs(ccDate.getTime() - ssDate.getTime());
                 var oneDayInMillis = 1000 * 60 * 60 * 24;
                 if(2*oneDayInMillis>difference>=oneDayInMillis)
@@ -424,13 +427,17 @@
                 else if(difference>2*oneDayInMillis){
                     currentUser.streak=1;
                 }
+
                 sessionName = prompt("Session name?");
+                accuracy=(correctAns/quizData.length)*100;
                 currentUser.streakDate=currentDate;
                 let combinedObject = {
                     quiz: quizData,
                     date: currentDate,
                     sessionName:sessionName,
-                    category:quizData[0].category
+                    category:quizData[0].category,
+                    correctAns:correctAns,
+                    accuracy:accuracy
                 };
     currentUser.solvedQuizz.push(combinedObject);
                 currentUser.correcQuiz+= correctAns;

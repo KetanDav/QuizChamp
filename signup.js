@@ -41,7 +41,11 @@ function storeData() {
         correcQuiz:0,
         lastQdate:0,
         streak:0,
-        streakDate:currentDate
+        streakDate:currentDate,
+        exp:0,
+        loc:0,
+        contect:0,
+        bookmark:[]
     };
 
     userData.push(newUserData);
