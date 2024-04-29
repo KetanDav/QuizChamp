@@ -75,7 +75,10 @@ setInterval(transitionBorderColor, 500); // Change color every second
                         correcQuiz:userData[i].correcQuiz,
                         lastQdate:userData[i].lastQdate,
                         streak:userData[i].streak,
-                        streakDate:userData[i].streakDate
+                        streakDate:userData[i].streakDate,
+                        exp:userData[i].exp,
+                        loc:userData[i].loc,
+                        contect:userData[i].contect
                     };
                     localStorage.setItem("currentUser", JSON.stringify(cUserData));
                     alert("Login successful!");

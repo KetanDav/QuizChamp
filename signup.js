@@ -42,8 +42,8 @@ function storeData() {
         lastQdate:0,
         streak:0,
         streakDate:currentDate,
-        exp:0,
-        loc:0,
+        exp:"",
+        loc:"",
         contect:0,
         bookmark:[]
     };

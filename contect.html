@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body{
+            background-color: black;
+        }
+        nav {
+            display: flex;
+            height: 11vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 5;
+            position: sticky;
+            top: 0;
+            background-color: rgb(0, 0, 0);
+            left: 0;
+
+        }
+
+        .logo {
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        .logoholder:hover {
+            transition: .6s;
+            transform: scale3d(1.2, 1.3.4);
+        }
+
+        .icon {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon>a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: 23px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            transition: .6s;
+        }
+
+        .icon>a:hover {
+            text-decoration: none;
+            transition: .6s;
+            transform: scale3d(1.3, 1.2, 3);
+            color: #FCC822;
+        }
+
+        div.icon>a.login {
+            transition: .6s;
+
+            color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+            padding: 0 30px;
+        }
+
+        div.icon>a.login:hover {
+            color: white;
+            transition: .6s;
+            transform: scale3d(1.15, 1, 1.4);
+            background-color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+        }
+
+        .icon>a>i {
+            font-size: 26px;
+        }
+
+        div.icon>a.login {
+            color: #FCC822;
+            border: 2px solid #FCC822;
+            margin: 0 30px 0 10px;
+            padding: 5px 10px;
+            background-color: transparent;
+            transition: background-color 1s, color 0.5s;
+        }
+
+        .miniP {
+            width: 40px;
+        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000;
+    color: #000000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+#contact {
+    padding: 50px 0;
+    margin: 40px 40px 0 40px; 
+    background-color: white;
+}
+
+.info {
+    text-align: center;
+    background-color: lightgray;
+    border: 3px solid black;
+    border-radius: 7px;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.contact-info {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.contact-info li i {
+    margin-right: 10px;
+    color: #333;
+    font-size: 18px;
+}
+
+.contact-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+textarea {
+    resize: none;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(50px)
+    }}
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logoholder">
+            <img src="logo1k.png" alt="" class="logo">
+        </div>
+        <div class="icon">
+            <a href="#" id="howWorks">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
+            <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
+            <a href="#">Contect us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
+            <a href="#" class="login">
+                <img src="profile (1).png" alt="" class="miniP">
+                <span class="pName">Elon Musk</span>
+            </a>
+        </div>
+    </nav>
+    <section id="contact">
+        <div class="container">
+            <div class="info">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you. Drop us a line!</p>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i>123 Main Street, City, Country</li>
+                    <li><i class="fas fa-phone-alt"></i>+123 456 7890</li>
+                    <li><i class="far fa-envelope"></i>info@example.com</li>
+                </ul>
+            </div>
+            <form id="contact-form" class="contact-form">
+                <h2>Send Us a Message</h2>
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        loginBtn = document.querySelector(".login");
+        loginBtn.addEventListener("click",()=>{
+            window.location.href="profile.html";
+        });
+        var currentUserData = localStorage.getItem("currentUser");
+
+        // Check if currentUserData exists
+        if (currentUserData) {
+            // Parse the currentUserData JSON string back into a JavaScript object
+            var currentUser = JSON.parse(currentUserData);
+            
+            // Access the username property of the currentUser object
+            var username = currentUser.username;
+            
+            // Display the username in the profile page
+            var usernameElements = document.querySelectorAll(".pName");
+            usernameElements.forEach(function(element) {
+                element.textContent = username;
+            });
+        
+            
+        }
+        
+    </script>
+</body>
+
+</html>

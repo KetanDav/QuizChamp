@@ -320,9 +320,10 @@
             font-size: 18px;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
-<body>
+<body ng-app="body">
     <div class="layer">
         <nav>
             <div class="logoholder">
@@ -331,7 +332,7 @@
             <div class="icon">
                 <a href="#" id="howWorks">How it works?<i class="fa fa-cogs" aria-hidden="true"></i></a>
                 <a href="#">Features<i class="fa fa-list-alt" aria-hidden="true"></i></a>
-                <a href="#">Contect us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                <a href="#" id="contectUs">Contect us<i class="fa fa-life-ring" aria-hidden="true"></i></a>
                 <a href="#" class="login">
                     <img src="profile (1).png" alt="" class="miniP">
                     <span class="pName">Elon Musk</span>
@@ -346,9 +347,9 @@
             <div class="pInfo">
                 <div class="basicInfo">
                     <h3>Name : - <span class="username"></span></h3>
-                    <h3>Experience : <span class="expProfile"></span>  </h3>
-                    <h3>Location : <span class="locProfile"></span> </h3>
-                    <h3>Contect No. : <span class="contectProfile"></span> </h3>
+                    <h3>Experience : <span class="expProfile" ng-model="expAng"></span>  </h3>
+                    <h3>Location : <span class="locProfile" ng-model="locAng"></span> </h3>
+                    <h3>Contect No. : <span class="contectProfile" ng-model="contectAng"></span> </h3>
                     <h3 class="edit">Edit<i class="fa fa-pencil" aria-hidden="true"></i></h3>
                 </div>
                 <div class="qInfo">
@@ -382,9 +383,9 @@
         </div>
         <div class="infoEdit">
             <h1>Edit Basic Information</h1>
-            <input type="text" id="urexp" placeholder="Experience">
-            <input type="text" id="urloc" placeholder="Location">
-            <input type="text" id="urnumber" placeholder="Contect Number">
+            <input type="text" id="urexp" placeholder="Experience" ng-bind="expAng">
+            <input type="text" id="urloc" placeholder="Location" ng-bind="locAng">
+            <input type="text" id="urnumber" placeholder="Contect Number" ng-bind="contectAng">
             <button id="save">Save</button>
         </div>
         <div class="historyPage" style="display: none;">

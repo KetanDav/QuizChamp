@@ -1,16 +1,21 @@
 sQuiz = document.querySelector(".quiz");
 sHistory = document.querySelector(".history");
 sBookmark = document.querySelector(".bookmark");
-
+sContect = document.querySelector("#contectUs");
+var infoEdit = document.querySelector('.infoEdit');
 sQuiz.addEventListener("click",()=>{
     window.location.href = "Quiz.html";
 })
 sHistory.addEventListener("click",()=>{
+    infoEdit.style.display = 'none';
     document.querySelector(".profile").style.display ="none";
     document.querySelector(".historyPage").style.display = "flex";
 })
 sBookmark.addEventListener("click",()=>{
     window.location.href = "Bookmark.html";
+})
+sContect.addEventListener("click",()=>{
+    window.location.href = "contect.html";
 })
 
 
@@ -43,14 +48,15 @@ if (currentUserData) {
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
         // Hide the infoEdit section
-        var infoEdit = document.querySelector('.infoEdit');
+        
         infoEdit.style.display = 'none';
+        location.reload();
     });
     currentUserData = localStorage.getItem("currentUser");
     currentUser = JSON.parse(currentUserData);
     // Access the username property of the currentUser object
     var username = currentUser.username;
-    document.querySelector(".expProfile").innerText=currentUser.exp;
+    document.querySelector(".expProfile").innerText=currentUser.exp===null?"---":currentUser.exp;
     document.querySelector(".locProfile").innerText=currentUser.loc;
     document.querySelector(".contectProfile").innerText=currentUser.contect;
     // Display the username in the profile page
@@ -65,12 +71,13 @@ if (currentUserData) {
     document.getElementById("solvedQuizz").innerText = TtlQuiz;
     document.getElementById("correcQuiz").innerText = currentUser.correcQuiz;
 
-    if (currentUser.streak == 0) {
-        currentUser.streak += 1;
-        document.getElementById("streak").innerText = 0 + " Days";
-    } else {
-        document.getElementById("streak").innerText = currentUser.streak + " Days";
-    }
+    document.getElementById("streak").innerText = currentUser.streak + " Days";
+    // if (currentUser.streak == 0) {
+    //     currentUser.streak += 1;
+    //     document.getElementById("streak").innerText = 0 + " Days";
+    // } else {
+        
+    // }
 
     if (currentUser.correcQuiz == 0) {
         document.getElementById("accuracy").innerText = 0 + " %";

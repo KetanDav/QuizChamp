@@ -254,6 +254,7 @@
             const otherButtons = document.getElementById('otherButtons');
             const givenAnswer = [];
             const givenQuiz = [];
+            var bookmark = [];
             async function fetchQuizData(numQuestions, category) {
                 try {
                     let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
@@ -449,6 +450,13 @@
             const skipButton = document.querySelector('.skip');
             skipButton.addEventListener('click', skipQuestion);
 
+
+            const bookmarkBTn = document.querySelector('.bookmark');
+            bookmarkBTn.addEventListener("click",()=>{
+                bookmark.push(quizData[currentQuestionIndex])
+                console.log("Hello i Am Bookmarked");
+                console.log(quizData[currentQuestionIndex])
+            })
 
             var UserJSON = localStorage.getItem("userData");
             var currentUser = JSON.parse(UserJSON);
