@@ -17,7 +17,6 @@
         }
 
         body {
-            background-image: url(back1.jpg);
             background-size: cover;
             backdrop-filter: blur(2px);
             overflow: hidden;
@@ -160,12 +159,22 @@
             object-fit: cover;
             opacity: 1;
         }
+        #dropdownContainer{
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-size: 24px;
+        }
+        #dropdownContainer button{
+            padding: 5px 10px;
+            background-color: rgb(192, 61, 83);
+        }
     </style>
 </head>
 
 <body>
     <video id="background-video" autoplay muted loop>
-        <source src="footboll.mp4" type="video/mp4">
+        <source src="ringlight.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     <div class="BlurLayer">
@@ -398,20 +407,22 @@
                 console.log(correctAns);
 
                 function parseDate(dateString) {
-                    // Split the date string into day, month, and year components
                     var parts = dateString.split('/');
                     
-                    // Parse the day, month, and year as integers
                     var day = parseInt(parts[0], 10);
-                    var month = parseInt(parts[1], 10) - 1; // Months are zero-based in JavaScript Date objects
+                    var month = parseInt(parts[1], 10) - 1;
                     var year = parseInt(parts[2], 10);
                     
-                    // Create a new Date object with the parsed components
                     return new Date(year, month, day);
                 }
 
                 var currentUserJSON = localStorage.getItem("currentUser");
                 var currentUser = JSON.parse(currentUserJSON);
+                console.log(FullBookmark)
+                FullBookmark = currentUser.bookmark.concat(bookmark);
+                console.log(FullBookmark)
+
+                currentUser.bookmark = FullBookmark;
                 var currentDate = new Date().toLocaleDateString();
                 ccDate=parseDate(currentDate);
                 StreakDate=currentUser.streakDate;
@@ -441,6 +452,7 @@
                     accuracy:accuracy
                 };
     currentUser.solvedQuizz.push(combinedObject);
+                currentUser.bookmark=bookmark;
                 currentUser.correcQuiz+= correctAns;
                 localStorage.setItem("currentUser", JSON.stringify(currentUser));
                 window.location.href = "profile.html";
@@ -454,8 +466,10 @@
             const bookmarkBTn = document.querySelector('.bookmark');
             bookmarkBTn.addEventListener("click",()=>{
                 bookmark.push(quizData[currentQuestionIndex])
+                
                 console.log("Hello i Am Bookmarked");
                 console.log(quizData[currentQuestionIndex])
+                console.log(bookmark)
             })
 
             var UserJSON = localStorage.getItem("userData");

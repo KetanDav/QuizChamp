@@ -254,16 +254,16 @@
         .optns{
             width: 100%;
             height: 40%;
-            background-color: aqua;
+            background-color: rgb(255, 255, 255);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px 0;
         }
         .optn{
-            width: 20%;
+            width: 40%;
             margin: 20px;
-            background-color: yellow;
+            background-color: rgb(255, 0, 0);
             height: 100%;
         }
         .edit > i{
@@ -319,8 +319,21 @@
             font-weight: 600;
             font-size: 18px;
         }
+        tbody > tr > td{
+            padding: 5px 10px;
+        }
+        #sampleBook{
+            display: none;
+        }
+        .bookmarks{
+            background-color: white;
+            margin: 20px;
+            color: black;
+        }
+        .bookmarkPage{
+            background-color: white;
+        }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
 <body ng-app="body">
@@ -347,9 +360,9 @@
             <div class="pInfo">
                 <div class="basicInfo">
                     <h3>Name : - <span class="username"></span></h3>
-                    <h3>Experience : <span class="expProfile" ng-model="expAng"></span>  </h3>
-                    <h3>Location : <span class="locProfile" ng-model="locAng"></span> </h3>
-                    <h3>Contect No. : <span class="contectProfile" ng-model="contectAng"></span> </h3>
+                    <h3>Experience : <span class="expProfile" ></span>  </h3>
+                    <h3>Location : <span class="locProfile" ></span> </h3>
+                    <h3>Contect No. : <span class="contectProfile" ></span> </h3>
                     <h3 class="edit">Edit<i class="fa fa-pencil" aria-hidden="true"></i></h3>
                 </div>
                 <div class="qInfo">
@@ -383,9 +396,9 @@
         </div>
         <div class="infoEdit">
             <h1>Edit Basic Information</h1>
-            <input type="text" id="urexp" placeholder="Experience" ng-bind="expAng">
-            <input type="text" id="urloc" placeholder="Location" ng-bind="locAng">
-            <input type="text" id="urnumber" placeholder="Contect Number" ng-bind="contectAng">
+            <input type="text" id="urexp" placeholder="Experience">
+            <input type="text" id="urloc" placeholder="Location" >
+            <input type="text" id="urnumber" placeholder="Contect Number">
             <button id="save">Save</button>
         </div>
         <div class="historyPage" style="display: none;">
@@ -424,6 +437,32 @@
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
         </div>
+        <!-- Add this code after the closing tag of the .historyPage -->
+
+<div class="bookmarkPage" style="display: none;">
+    <div class="topIcons">
+        <i class="fa fa-arrow-left backArrow" aria-hidden="true"></i>
+        <h1>Bookmarks</h1>
+        <i class="fa fa-filter filter" aria-hidden="true"></i>
+    </div>
+    <div class="bookmarks">
+        <div id="sampleBook">
+        <div class="Question"></div>
+        <div class="optns">
+            <div class="optn op1 inc"></div>
+            <div class="optn inc op2"></div>
+            <div class="optn inc op3"></div>
+            <div class="optn correctOp"></div>
+        </div>
+    </div>
+    </div>
+    <div class="bottamIcons">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        <h2>Pages</h2>
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </div>
+</div>
+
     </div>
     <script src="profile.js"></script>
 </body>

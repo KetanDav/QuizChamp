@@ -11,9 +11,7 @@ sHistory.addEventListener("click",()=>{
     document.querySelector(".profile").style.display ="none";
     document.querySelector(".historyPage").style.display = "flex";
 })
-sBookmark.addEventListener("click",()=>{
-    window.location.href = "Bookmark.html";
-})
+
 sContect.addEventListener("click",()=>{
     window.location.href = "contect.html";
 })
@@ -129,6 +127,7 @@ howWorks = document.querySelector("#howWorks");
         back2Hpme.addEventListener("click",()=>{
             document.querySelector(".profile").style.display ="block";
     document.querySelector(".historyPage").style.display = "none";
+    document.querySelector(".bookmarkPage").style.display = "none";
         })
         // Fetch quiz details from local storage
 function fetchQuizDetails() {
@@ -204,3 +203,147 @@ document.addEventListener("keydown", function(event) {
 });
 document.querySelector('.bottamIcons .fa-angle-left').addEventListener('click', goToPrevPage);
 document.querySelector('.bottamIcons .fa-angle-right').addEventListener('click', goToNextPage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var back2Hpme = document.querySelector(".backArrow2");
+        back2Hpme.addEventListener("click",()=>{
+            document.querySelector(".profile").style.display ="block";
+    document.querySelector(".historyPage").style.display = "none";
+    document.querySelector(".bookmarkPage").style.display = "none";
+        })
+console.log(currentUser.bookmark);
+
+// Function to switch to the profile page
+function showProfilePage() {
+    document.querySelector('.profile').style.display = 'block';
+    document.querySelector('.historyPage').style.display = 'none';
+    document.querySelector('.bookmarkPage').style.display = 'none';
+}
+
+// Function to switch to the history page
+function showHistoryPage() {
+    document.querySelector('.profile').style.display = 'none';
+    document.querySelector('.historyPage').style.display = 'block';
+    document.querySelector('.bookmarkPage').style.display = 'none';
+}
+
+// Function to switch to the bookmark page
+function showBookmarkPage() {
+    document.querySelector('.profile').style.display = 'none';
+    document.querySelector('.historyPage').style.display = 'none';
+    document.querySelector('.bookmarkPage').style.display = 'block';
+
+    var bookmarks = currentUser.bookmark;
+
+    // Reference to the sample bookmark element
+    var sampleBookmark = document.getElementById("sampleBook");
+
+    var bookmarksContainer = document.querySelector('.bookmarks');
+
+    bookmarksContainer.innerHTML = '';
+
+    // Loop through each bookmark and display it
+    bookmarks.forEach(function(bookmark) {
+        // Clone the sample bookmark element
+        var bookmarkElement = sampleBookmark.cloneNode(true);
+        bookmarkElement.removeAttribute("id"); // Remove the ID to prevent duplication
+
+        // Update the bookmark element with bookmark data
+        bookmarkElement.querySelector(".Question").innerText = bookmark.question;
+        bookmarkElement.querySelector(".op1").innerText=bookmark.incorrect_answers[0]
+        bookmarkElement.querySelector(".op2").innerText=bookmark.incorrect_answers[1]
+        bookmarkElement.querySelector(".op3").innerText=bookmark.incorrect_answers[2]
+        bookmarkElement.querySelector(".correctOp").innerText=bookmark.correct_answer;
+        // Append the bookmark element to the bookmarks container
+        bookmarksContainer.append(bookmarkElement);
+    });
+
+    const bookmarkItems = document.querySelectorAll('.bookmarkPage .bookmarks > .sampleBook');
+    const prevPageBtn = document.getElementById('prv');
+    const nextPageBtn = document.getElementById('nxt');
+    const currentPage = document.getElementById('crnt');
+    const pageSize = 5; // Number of bookmarks per page
+    let currentPageNumber = 1;
+
+    // Function to display bookmarks based on current page
+    function displayBookmarks() {
+        const startIndex = (currentPageNumber - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        bookmarkItems.forEach((bookmark, index) => {
+            if (index >= startIndex && index < endIndex) {
+                bookmark.style.display = 'block';
+            } else {
+                bookmark.style.display = 'none';
+            }
+        });
+        currentPage.textContent = currentPageNumber;
+    }
+
+    // Function to update pagination
+    function updatePagination() {
+        const totalPages = Math.ceil(bookmarkItems.length / pageSize);
+        if (currentPageNumber === 1) {
+            prevPageBtn.style.visibility = 'hidden';
+        } else {
+            prevPageBtn.style.visibility = 'visible';
+        }
+        if (currentPageNumber === totalPages) {
+            nextPageBtn.style.visibility = 'hidden';
+        } else {
+            nextPageBtn.style.visibility = 'visible';
+        }
+    }
+
+    // Event listener for previous page button
+    prevPageBtn.addEventListener('click', function() {
+        if (currentPageNumber > 1) {
+            currentPageNumber--;
+            displayBookmarks();
+            updatePagination();
+        }
+    });
+
+    // Event listener for next page button
+    nextPageBtn.addEventListener('click', function() {
+        const totalPages = Math.ceil(bookmarkItems.length / pageSize);
+        if (currentPageNumber < totalPages) {
+            currentPageNumber++;
+            displayBookmarks();
+            updatePagination();
+        }
+    });
+
+    // Initial display
+    displayBookmarks();
+    updatePagination();
+}
+
+// Event listeners for navigation
+document.getElementById('howWorks').addEventListener('click', showProfilePage);
+document.getElementById('contectUs').addEventListener('click', showHistoryPage);
+document.querySelector('.bookmark').addEventListener('click', showBookmarkPage);
