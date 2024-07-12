@@ -244,17 +244,20 @@
             margin: 10px 20px;
             padding: 10px 0 0 0;
         }
+        
         .Question{
             text-align: center;
             padding: 10px 30px;
             margin: 10px;
-            background-color: blue;
+            background-color: rgb(255, 255, 255);
+            padding: 5px 8px;
+            border: 3px solid black;
+            border-radius: 100px;
             font-size: 20px;
         }
         .optns{
             width: 100%;
-            height: 40%;
-            background-color: rgb(255, 255, 255);
+            height: 30%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -262,12 +265,17 @@
         }
         .optn{
             width: 40%;
-            margin: 20px;
-            background-color: rgb(255, 0, 0);
+            margin: 10px 20px;
+            padding: 5px 10px;
+            border: 3px solid black;
+            border-radius: 100px;
+            background-color: rgb(255, 255, 255);
             height: 100%;
+            text-align: center;
         }
         .edit > i{
-            font-size: 20px;margin-left:20px;
+            font-size: 20px;
+            margin-left:20px;
         }
         .edit{
             margin: 40px 0 0 0;
@@ -282,6 +290,9 @@
             padding:10px;
             border: 3px solid gray;
         }
+        thead > tr > td{
+            padding: 20px;
+        }
         table{
             width: 100%;
             border-collapse: separate;
@@ -290,10 +301,12 @@
         }
         tr{
             background-color: lightblue;
+            padding: 10px;
         }
         #sample{
-            display: none;
+            display: flex;
         }
+        
         .infoEdit{
             position: absolute;
             height: 360px;
@@ -325,13 +338,26 @@
         #sampleBook{
             display: none;
         }
+        .sampleBook{
+            background-color: #ffc400d3;
+            padding: 10px 20px;
+            border: 4px solid black;
+            border-radius: 7px;
+            margin: 10px 5px;
+        }
         .bookmarks{
             background-color: white;
             margin: 20px;
             color: black;
+
+
         }
         .bookmarkPage{
             background-color: white;
+            margin: 40px 60px 0 60px;
+        }
+        div.correctOp{
+            background-color: #22b627;
         }
     </style>
 </head>
@@ -368,7 +394,7 @@
                 <div class="qInfo">
                     <div class="quizInfo">
                         <div class="data">
-                            <h1>921</h1>Rating
+                            <h1 class="ratingNum">921</h1>Rating
                         </div>
                         <div class="data">
                             <h1 style="color: green;">Pupil</h1>Title</div>
@@ -439,29 +465,30 @@
         </div>
         <!-- Add this code after the closing tag of the .historyPage -->
 
-<div class="bookmarkPage" style="display: none;">
-    <div class="topIcons">
-        <i class="fa fa-arrow-left backArrow" aria-hidden="true"></i>
-        <h1>Bookmarks</h1>
-        <i class="fa fa-filter filter" aria-hidden="true"></i>
-    </div>
-    <div class="bookmarks">
-        <div id="sampleBook">
-        <div class="Question"></div>
-        <div class="optns">
-            <div class="optn op1 inc"></div>
-            <div class="optn inc op2"></div>
-            <div class="optn inc op3"></div>
-            <div class="optn correctOp"></div>
+        <div class="bookmarkPage" style="display: none;">
+            <div class="topIcons">
+                <i class="fa fa-arrow-left backArrow2" aria-hidden="true"></i>
+                <h1>Bookmarks</h1>
+                <i class="fa fa-filter filter" aria-hidden="true"></i>
+            </div>
+            <div class="bookmarks">
+                <!-- Sample bookmark template -->
+                <div id="sampleBook" class="sampleBook">
+                    <div class="Question"></div>
+                    <div class="optns">
+                        <div class="optn op1 inc"></div>
+                        <div class="optn inc op2"></div>
+                        <div class="optn inc op3"></div>
+                        <div class="optn correctOp"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottamIcons">
+                <i class="fa fa-angle-left .bookmarkPage .prevPage" id="prv" aria-hidden="true"></i>
+                <h2 class=".bookmarkPage .currentPage" id="crnt">Pages</h2>
+                <i class="fa fa-angle-right .bookmarkPage .nextPage" id="nxt" aria-hidden="true"></i>
+            </div>
         </div>
-    </div>
-    </div>
-    <div class="bottamIcons">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        <h2>Pages</h2>
-        <i class="fa fa-angle-right" aria-hidden="true"></i>
-    </div>
-</div>
 
     </div>
     <script src="profile.js"></script>

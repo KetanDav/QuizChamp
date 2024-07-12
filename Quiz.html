@@ -264,6 +264,7 @@
             const givenAnswer = [];
             const givenQuiz = [];
             var bookmark = [];
+            var FullBookmark;
             async function fetchQuizData(numQuestions, category) {
                 try {
                     let response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=easy&type=multiple`);
@@ -322,13 +323,13 @@
                     optionsArray[i].innerHTML = shuffledOptions[i];
                 }
 
-                if (!optionsEventAdded) { // Check if event listener has been added
+                if (!optionsEventAdded) { 
                     optionsContainer.addEventListener('click', function (event) {
                         if (event.target.classList.contains('option')) {
                             selectOption(event.target);
                         }
                     });
-                    optionsEventAdded = true; // Set flag to true indicating event listener is added
+                    optionsEventAdded = true; 
                 }
             }
 
@@ -418,8 +419,10 @@
 
                 var currentUserJSON = localStorage.getItem("currentUser");
                 var currentUser = JSON.parse(currentUserJSON);
+                var FullBookmark = currentUser.bookmark;
+
                 console.log(FullBookmark)
-                FullBookmark = currentUser.bookmark.concat(bookmark);
+                FullBookmark= FullBookmark.concat(bookmark)
                 console.log(FullBookmark)
 
                 currentUser.bookmark = FullBookmark;
@@ -452,7 +455,6 @@
                     accuracy:accuracy
                 };
     currentUser.solvedQuizz.push(combinedObject);
-                currentUser.bookmark=bookmark;
                 currentUser.correcQuiz+= correctAns;
                 localStorage.setItem("currentUser", JSON.stringify(currentUser));
                 window.location.href = "profile.html";

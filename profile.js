@@ -52,6 +52,8 @@ if (currentUserData) {
     });
     currentUserData = localStorage.getItem("currentUser");
     currentUser = JSON.parse(currentUserData);
+
+    
     // Access the username property of the currentUser object
     var username = currentUser.username;
     document.querySelector(".expProfile").innerText=currentUser.exp===null?"---":currentUser.exp;
@@ -70,6 +72,38 @@ if (currentUserData) {
     document.getElementById("correcQuiz").innerText = currentUser.correcQuiz;
 
     document.getElementById("streak").innerText = currentUser.streak + " Days";
+
+
+
+
+
+
+
+
+
+
+
+    // Function to generate numeric user rating
+function generateUserRating(currentUser) {
+    // Calculate accuracy
+    let accuracy = (currentUser.correcQuiz / TtlQuiz) * 100;
+    
+    // Get maximum streak
+    let maxStreak = currentUser.streak;
+
+    // Get total correct answers
+    let totalCorrect = currentUser.correcQuiz;
+
+    // Calculate numeric rating based on accuracy, max streak, and total correct answers
+    let userRating = (accuracy * 0.5) + (maxStreak * 0.3) + (totalCorrect * 0.2);
+
+    return userRating.toFixed(1)*10;
+}
+
+// Example usage:
+let userRating = generateUserRating(currentUser);
+console.log("User rating:", userRating);
+
     // if (currentUser.streak == 0) {
     //     currentUser.streak += 1;
     //     document.getElementById("streak").innerText = 0 + " Days";
@@ -89,6 +123,15 @@ if (currentUserData) {
 } else {
     console.log("No currentUser data found in local storage.");
 }
+
+
+
+
+
+document.querySelector(".ratingNum").innerText = generateUserRating(currentUser);
+
+
+
 
 
 setTimeout(()=>{
@@ -274,11 +317,11 @@ function showBookmarkPage() {
         bookmarkElement.removeAttribute("id"); // Remove the ID to prevent duplication
 
         // Update the bookmark element with bookmark data
-        bookmarkElement.querySelector(".Question").innerText = bookmark.question;
-        bookmarkElement.querySelector(".op1").innerText=bookmark.incorrect_answers[0]
-        bookmarkElement.querySelector(".op2").innerText=bookmark.incorrect_answers[1]
-        bookmarkElement.querySelector(".op3").innerText=bookmark.incorrect_answers[2]
-        bookmarkElement.querySelector(".correctOp").innerText=bookmark.correct_answer;
+        bookmarkElement.querySelector(".Question").innerHTML = bookmark.question;
+        bookmarkElement.querySelector(".op1").innerHTML=bookmark.incorrect_answers[0]
+        bookmarkElement.querySelector(".op2").innerHTML=bookmark.incorrect_answers[1]
+        bookmarkElement.querySelector(".op3").innerHTML=bookmark.incorrect_answers[2]
+        bookmarkElement.querySelector(".correctOp").innerHTML=bookmark.correct_answer;
         // Append the bookmark element to the bookmarks container
         bookmarksContainer.append(bookmarkElement);
     });
