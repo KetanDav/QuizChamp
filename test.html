@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Test Page</title>
+    <script>
+        
+        // Function to store test data in MongoDB
+        function storeData() {
+            console.log("Storing data...");
+            var username = "testUser";
+            var email = "test@example.com";
+            var password = "123456";
+
+            var newUserData = {
+                username: username,
+                email: email,
+                password: password,
+                solvedQuizz: [],
+                correcQuiz: 0,
+                lastQdate: 0,
+                streak: 0,
+                streakDate: new Date().toLocaleDateString(),
+                exp: "",
+                loc: "",
+                contect: 0,
+                bookmark: []
+            };
+
+            fetch("http://localhost:5000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newUserData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || data.error);
+                console.log("Data stored successfully:", data);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Function to retrieve all users from MongoDB
+        function retrieveData() {
+            console.log("Fetching users...");
+            fetch("http://localhost:5000/users")
+                .then(response => response.json())
+                .then(users => {
+                    const userList = document.getElementById("userList");
+                    userList.innerHTML = ""; // Clear previous results
+
+                    users.forEach(user => {
+                        const li = document.createElement("li");
+                        li.textContent = `UserData: ${user.username}, Email: ${user.email}`;
+                        console.log(user)
+                        userList.appendChild(li);
+                    });
+
+                    console.log("Users retrieved successfully:", users);
+                })
+                .catch(error => console.error("Error fetching users:", error));
+        }
+    </script>
+</head>
+<body>
+    <h2>MongoDB Testing Page</h2>
+    <button onclick="storeData()">Store Test Data</button>
+    <button onclick="retrieveData()">Retrieve Users</button>
+    
+    <h3>Stored Users:</h3>
+    <ul id="userList"></ul>
+</body>
+</html>

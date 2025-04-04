@@ -5,7 +5,7 @@ function validate() {
     var password = document.getElementById("Password").value;
     var confirmPassword = document.getElementById("Confirm_Password").value;
 
-    if (username.trim() == "" || email.trim() == "" || password.trim() == "" || confirmPassword.trim() == "") {
+    if (!username.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
         alert("All fields are required");
         console.log("Validation failed: All fields are required");
         return false;
@@ -19,55 +19,63 @@ function validate() {
 
     console.log("Validation successful");
     return true;
-}
+}   
 
-// Function to store data in local storage
-// Function to store data in local storage
-function storeData() {
+
+
+// Store data in database
+async function storeData() {
     console.log("Storing data...");
     var username = document.getElementById("Username").value;
     var email = document.getElementById("Email").value;
     var password = document.getElementById("Password").value;
 
-    var storedData = localStorage.getItem('userData');
-    var userData = storedData ? JSON.parse(storedData) : [];
-    var currentDate = new Date().toLocaleDateString();
+    try {
 
-    var newUserData = {
-        username: username,
-        email: email,
-        password: password ,
-        solvedQuizz:[],
-        correcQuiz:0,
-        lastQdate:0,
-        streak:0,
-        streakDate:currentDate,
-        exp:"",
-        loc:"",
-        contect:0,
-        bookmark:[]
-    };
 
-    userData.push(newUserData);
+        var newUserData = {
+            username: username,
+            email: email,
+            password,
+            solvedQuizz: [],
+            correcQuiz: 0,
+            lastQdate: 0,
+            streak: 0,
+            streakDate: new Date().toLocaleDateString(),
+            exp: "",
+            loc: "",
+            contect: 0,
+            bookmark: []
+        };
 
-    var updatedUserDataJSON = JSON.stringify(userData);
+        const response = await fetch("https://700ad19f4cb8605946552039d29ebd35.serveo.net/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUserData)
+        });
 
-    // Store the updated user data in local storage
-    localStorage.setItem('userData', updatedUserDataJSON);
+        const data = await response.json();
 
-    console.log("Data stored successfully:", newUserData);
+        if (response.ok) {
+            alert(data.message || "Signup successful!");
+            window.location.href = "login.html"; // Redirect to login
+        } else {
+            alert(data.error || "Signup failed. Try again.");
+        }
+    } catch (error) {
+        console.error("Signup error:", error);
+        alert("Signup failed. Try again.");
+    }
 }
 
+// Handle form submission
+function onSubmitForm(event) {
+    event.preventDefault(); // Prevent form from reloading
 
-// Function to be called on form submission
-function onSubmitForm() {
     console.log("Form submitted");
     if (validate()) {
-        storeData();
-        console.log("Redirecting to login page...");
-        window.location.href = "login.html";
+        storeData(); // This function handles redirection
     }
-    return false;
 }
 
 document.forms["myForm"].onsubmit = onSubmitForm;

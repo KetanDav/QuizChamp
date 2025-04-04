@@ -1,50 +1,3 @@
-// // Function to validate login credentials
-// // Function to validate login credentials
-// function validateLogin() {
-//   var username = document.getElementById("name").value;
-//   var password = document.getElementById("pass").value;
-//   // Retrieve stored data from local storage
-//   var storedData = localStorage.getItem('userData');
-
-//   // If no data is stored, return false
-//   if (!storedData) {
-//       alert("No user data found. Please sign up first.");
-//       return false;
-//   }
-
-//   // Parse the stored JSON string back to a JavaScript object
-//   var userData = JSON.parse(storedData);
-
-//   // Check if the provided username and password match any existing data
-//   for (var i = 0; i < userData.length; i++) {
-//       if (userData[i].username === username && userData[i].password === password) {
-//           return true; // Credentials are valid
-//       }
-//   }
-
-//   alert("Invalid username or password. Please try again.");
-//   return false; // Credentials are invalid
-// }
-
-// // Function to be called on login form submission
-// function onSubmitLoginForm(event) {
-//   console.log("Login form submitted");
-//   event.preventDefault(); // Prevent the default form submission behavior
-//   if (validateLogin()) {
-//       var username = document.getElementById("name").value;
-//       var password = document.getElementById("pass").value;
-//       var cUserData = {
-//           username: username,
-//           password: password
-//       };
-//       console.log("Redirecting to dashboard...");
-//   }
-// }
-
-// // Add event listener for form submission
-// document.getElementById("loginBtn").addEventListener("click", onSubmitLoginForm);
-
-
 nameInput = document.getElementById("name");
 var passwordInput = document.getElementById("pass");
 var passwordIcon = document.getElementById("password-icon");
@@ -111,22 +64,7 @@ function calculateMargin(length) {
   }
 }
 
-// nameInput.addEventListener("input", () => {
-//     const inputValue = nameInput.value.trim(); // Remove leading/trailing whitespace
-//     if (inputValue.length > 0 && inputValue.length <= 35) {
-//         eyeboll.forEach(function(boll) {
-//             boll.style.margin = "5px 20px"; // Adjust margin when length is between 0 and 35
-//         });
-//     } else if (inputValue.length > 0 && inputValue.length >= 35) {
-//         eyeboll.forEach(function(boll) {
-//             boll.style.margin = "5px 20px"; // Adjust margin when length is between 0 and 35
-//         });
-//     } else {
-//         eyeboll.forEach(function(boll) {
-//             boll.style.margin = "2.5px 12.5px"; // Reset margin when length is outside the range
-//         });
-//     }
-// });
+
 
 passwordInput.addEventListener("focus", () => {
   var eyeElements = document.querySelectorAll(".eye");

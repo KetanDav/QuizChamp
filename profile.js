@@ -16,119 +16,138 @@ sContect.addEventListener("click",()=>{
     window.location.href = "contect.html";
 })
 
-
-let currentUserData = localStorage.getItem("currentUser");
-
-// Check if currentUserData exists
-if (currentUserData) {
-    // Parse the currentUserData JSON string back into a JavaScript object
-    var currentUser = JSON.parse(currentUserData);
-
-    var editBtn = document.querySelector('.edit');
-    editBtn.addEventListener('click', function() {
-        var infoEdit = document.querySelector('.infoEdit');
-        infoEdit.style.display = 'flex';
-    });
-
-    // Event listener for the save button
-    var saveBtn = document.getElementById('save');
-    saveBtn.addEventListener('click', function() {
-        var urexpInput = document.getElementById('urexp');
-        var urlocInput = document.getElementById('urloc');
-        var urnumberInput = document.getElementById('urnumber');
-        
-        // Update currentUser data with new values
-        currentUser.exp = urexpInput.value.trim();
-        currentUser.loc = urlocInput.value.trim();
-        currentUser.contect = urnumberInput.value.trim();
-
-        // Save updated data to local storage
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-        // Hide the infoEdit section
-        
-        infoEdit.style.display = 'none';
-        location.reload();
-    });
-    currentUserData = localStorage.getItem("currentUser");
-    currentUser = JSON.parse(currentUserData);
-
-    
-    // Access the username property of the currentUser object
-    var username = currentUser.username;
-    document.querySelector(".expProfile").innerText=currentUser.exp===null?"---":currentUser.exp;
-    document.querySelector(".locProfile").innerText=currentUser.loc;
-    document.querySelector(".contectProfile").innerText=currentUser.contect;
-    // Display the username in the profile page
-    var usernameElements = document.querySelectorAll(".username, .pName");
-    usernameElements.forEach(function(element) {
-        element.textContent = username;
-    });
-    var TtlQuiz = 0;
-    for (i = 0; i < currentUser.solvedQuizz.length; i++) {
-        TtlQuiz += currentUser.solvedQuizz[i].quiz.length;
-    }
-    document.getElementById("solvedQuizz").innerText = TtlQuiz;
-    document.getElementById("correcQuiz").innerText = currentUser.correcQuiz;
-
-    document.getElementById("streak").innerText = currentUser.streak + " Days";
-
-
-
-
-
-
-
-
-
-
-
-    // Function to generate numeric user rating
-function generateUserRating(currentUser) {
-    // Calculate accuracy
-    let accuracy = (currentUser.correcQuiz / TtlQuiz) * 100;
-    
-    // Get maximum streak
-    let maxStreak = currentUser.streak;
-
-    // Get total correct answers
-    let totalCorrect = currentUser.correcQuiz;
-
-    // Calculate numeric rating based on accuracy, max streak, and total correct answers
-    let userRating = (accuracy * 0.5) + (maxStreak * 0.3) + (totalCorrect * 0.2);
-
-    return userRating.toFixed(1)*10;
+window.onload = function(){
+    loadProfile();
 }
 
-// Example usage:
-let userRating = generateUserRating(currentUser);
-console.log("User rating:", userRating);
 
-    // if (currentUser.streak == 0) {
-    //     currentUser.streak += 1;
-    //     document.getElementById("streak").innerText = 0 + " Days";
-    // } else {
-        
-    // }
+async function fetchProfile() {
+    try {
+        const response = await fetch(" https://700ad19f4cb8605946552039d29ebd35.serveo.net/profile", {
+            method: "GET",
+            credentials: "include",
+        });
 
-    if (currentUser.correcQuiz == 0) {
-        document.getElementById("accuracy").innerText = 0 + " %";
-    } else {
-        document.getElementById("accuracy").innerText = ((currentUser.correcQuiz / (TtlQuiz)) * 100).toFixed(2) + " %";
+        if (!response.ok) {
+            throw new Error("Unauthorized");
+        }
+
+        const userData = await response.json();
+        return userData;
+    } catch (error) {
+        console.error("Profile fetch error:", error);
+        window.location.href = "login.html"; // Redirect if unauthorized
     }
-
-    // Event listener for the edit button
-    
-
-} else {
-    console.log("No currentUser data found in local storage.");
 }
 
 
 
+async function loadProfile()
+{
+    const currentUser =await fetchProfile();
+
+    console.log(currentUser);
+        var editBtn = document.querySelector('.edit');
+        editBtn.addEventListener('click', function() {
+            var infoEdit = document.querySelector('.infoEdit');
+            infoEdit.style.display = 'flex';
+        });
+    
+        // Event listener for the save button
+        var saveBtn = document.getElementById('save');
+        saveBtn.addEventListener('click', function() {
+            var urexpInput = document.getElementById('urexp');
+            var urlocInput = document.getElementById('urloc');
+            var urnumberInput = document.getElementById('urnumber');
+            
+            // Update currentUser data with new values
+            currentUser.exp = urexpInput.value.trim();
+            currentUser.loc = urlocInput.value.trim();
+            currentUser.contect = urnumberInput.value.trim();
+    
+            // Save updated data to local storage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+            // Hide the infoEdit section
+            
+            infoEdit.style.display = 'none';
+            location.reload();
+        });
+    
+        
+        // Access the username property of the currentUser object
+        var username = currentUser.username;
+        document.querySelector(".expProfile").innerText=currentUser.exp===null?"---":currentUser.exp;
+        document.querySelector(".locProfile").innerText=currentUser.loc;
+        document.querySelector(".contectProfile").innerText=currentUser.contact;
+        // Display the username in the profile page
+        var usernameElements = document.querySelectorAll(".username, .pName");
+        usernameElements.forEach(function(element) {
+            element.textContent = username;
+        });
+        var TtlQuiz = 0;
+        for (i = 0; i < currentUser.solvedQuiz.length; i++) {
+            TtlQuiz += currentUser.solvedQuiz[i].quiz.length;
+        }
+        document.getElementById("solvedQuizz").innerText = TtlQuiz;
+        document.getElementById("correcQuiz").innerText = currentUser.correctQuiz;
+    
+        document.getElementById("streak").innerText = currentUser.streak + " Days";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        // Function to generate numeric user rating
+    function generateUserRating(currentUser) {
+        // Calculate accuracy
+        let accuracy = (currentUser.correctQuiz / TtlQuiz) * 100;
+        
+        // Get maximum streak
+        let maxStreak = currentUser.streak;
+    
+        // Get total correct answers
+        let totalCorrect = currentUser.correctQuiz;
+    
+        // Calculate numeric rating based on accuracy, max streak, and total correct answers
+        let userRating = (accuracy * 0.5) + (maxStreak * 0.3) + (totalCorrect * 0.2);
+    
+        return userRating.toFixed(1)*10;
+    }
+    
+    // Example usage:
+    let userRating = generateUserRating(currentUser);
+    console.log("User rating:", userRating);
+    
+        // if (currentUser.streak == 0) {
+        //     currentUser.streak += 1;
+        //     document.getElementById("streak").innerText = 0 + " Days";
+        // } else {
+            
+        // }
+    
+        if (currentUser.correctQuiz == 0) {
+            document.getElementById("accuracy").innerText = 0 + " %";
+        } else {
+            document.getElementById("accuracy").innerText = ((currentUser.correctQuiz / (TtlQuiz)) * 100).toFixed(2) + " %";
+        }
+    
+        // Event listener for the edit button
+        
 
 
-document.querySelector(".ratingNum").innerText = generateUserRating(currentUser);
+
+
+
+
+
+document.querySelector(".ratingNum").innerText = userRating;
 
 
 
@@ -138,7 +157,6 @@ setTimeout(()=>{
     var greetingMessage = "Welcome back, " + username + "! We're glad to see you here.";
     // alert(greetingMessage);
 },1000)
-
 
 
 howWorks = document.querySelector("#howWorks");
@@ -219,7 +237,8 @@ function goToNextPage() {
 }
 
 // Initialize the quiz details, current page, and quizzes per page
-let quizDetails = currentUser.solvedQuizz;
+
+let quizDetails = currentUser.solvedQuiz;
 let currentPage = 1;
 const quizzesPerPage = 3;
 const totalPages = Math.ceil(quizDetails.length / quizzesPerPage);
@@ -390,3 +409,4 @@ function showBookmarkPage() {
 document.getElementById('howWorks').addEventListener('click', showProfilePage);
 document.getElementById('contectUs').addEventListener('click', showHistoryPage);
 document.querySelector('.bookmark').addEventListener('click', showBookmarkPage);
+}
