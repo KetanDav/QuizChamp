@@ -44,18 +44,7 @@ setInterval(transitionBorderColor, 500); // Change color every second
 
 
 
-async function retrieveData() {
-    console.log("Fetching users...");
-    try {
-        const response = await fetch("https://65f29c0e656733ec55665bb2ed8ec863.serveo.net/users");
-        const users = await response.json();
-        console.log("Users retrieved successfully:", users);
-        return users; 
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return null;
-    }
-}
+
 
 
 
@@ -144,7 +133,7 @@ async function retrieveData() {
             const username = usernameInput.value;
             const password = passwordInput.value;
             try {
-                const response = await fetch("https://700ad19f4cb8605946552039d29ebd35.serveo.net/login", {
+                const response = await fetch(CONFIG.SERVER_URL+"/login", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },

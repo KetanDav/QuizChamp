@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
+
 
 const app = express();
 const PORT = 5000;
@@ -21,7 +23,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // MongoDB Connection
-mongoose.connect("mongodb://ketan:ketandav@ac-onbh1ga-shard-00-00.6qmr4qa.mongodb.net:27017,ac-onbh1ga-shard-00-01.6qmr4qa.mongodb.net:27017,ac-onbh1ga-shard-00-02.6qmr4qa.mongodb.net:27017/?replicaSet=atlas-mggij2-shard-0&ssl=true&authSource=admin&retryWrites=true&w=majority&appName=Cluster0", {
+MONGO_URL=process.env.MONGO_URI;
+mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log("MongoDB Connected"))
