@@ -23,7 +23,7 @@ window.onload = function(){
 
 async function fetchProfile() {
     try {
-        const response = await fetch(" https://700ad19f4cb8605946552039d29ebd35.serveo.net/profile", {
+        const response = await fetch(CONFIG.SERVER_URL+"/profile", {
             method: "GET",
             credentials: "include",
         });
