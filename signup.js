@@ -22,7 +22,7 @@ function validate() {
 }   
 
 
-
+console.log(CONFIG.SERVER_URL+"/signup")
 // Store data in database
 async function storeData() {
     console.log("Storing data...");
@@ -47,7 +47,7 @@ async function storeData() {
             contect: 0,
             bookmark: []
         };
-
+        
         const response = await fetch("https://700ad19f4cb8605946552039d29ebd35.serveo.net/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
