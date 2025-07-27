@@ -41,6 +41,7 @@ async function handleLogin() {
   // Retrieve the values of the username and password inputs
   const username = usernameInput.value;
   const password = passwordInput.value;
+  console.log(username, password);
   try {
     const response = await fetch(CONFIG.SERVER_URL + "/login", {
       method: "POST",
